@@ -12,6 +12,8 @@ Every station has a 30-minute timer, a teacher lesson read aloud with captions a
 
 **Submit:** The *Submit my scores* button sends name, class period, station scores, exit writing and game scores straight to the teacher's Jotform. A backup link opens the same form with the work already filled in.
 
+**Agenda board:** `agenda.html` is the projector board, with the essential question, objectives, an editable group rotation chart, a 30-minute round timer with chime, and step checklists for each station.
+
 Open one station directly: add `#station-1`, `#station-2` or `#station-3` to the address.
 
 EL Publishing · Many Voices · One Storm
