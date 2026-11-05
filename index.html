@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Three 30-minute ELPA21 prep stations for grades 9–12: vocabulary, tasks + test tips, and writing basics, with teacher coaches, games and autograding.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2228%22 fill=%22%231E2761%22/%3E%3Cpath d=%22M32 12 A20 20 0 0 1 52 32 L32 32Z%22 fill=%22%23C9A227%22/%3E%3C/svg%3E">
+<title>ELPA21 Prep Stations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: rotation board on top (three station timers), selected station's work below in a single readable column */
+:root{
+  --bg:#f2f4f7; --surface:#ffffff; --ink:#15202e; --muted:#5a6676; --line:#d9dee6;
+  --s1:#4338ca; --s1-soft:#e7e6fb;
+  --s2:#0f766e; --s2-soft:#dcf1ee;
+  --s3:#b45309; --s3-soft:#fbeedc;
+  --good:#15803d; --bad:#b91c1c;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1520; --surface:#18212f; --ink:#e8edf4; --muted:#9aa7b8; --line:#2b3748;
+  --s1:#a5a1ff; --s1-soft:#25244a; --s2:#5fd4c6; --s2-soft:#13332f; --s3:#f3b264; --s3-soft:#3a2a14;
+  --good:#5bd88a; --bad:#ff8a8a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1520; --surface:#18212f; --ink:#e8edf4; --muted:#9aa7b8; --line:#2b3748;
+  --s1:#a5a1ff; --s1-soft:#25244a; --s2:#5fd4c6; --s2-soft:#13332f; --s3:#f3b264; --s3-soft:#3a2a14;
+  --good:#5bd88a; --bad:#ff8a8a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;margin-bottom:20px}
+header.top h1{font-size:clamp(28px,4vw,40px);font-weight:800}
+header.top p{margin:4px 0 0;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted);background:var(--surface)}
+
+/* rotation board */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.board{grid-template-columns:1fr}}
+.st{--c:var(--s1);--soft:var(--s1-soft);background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;cursor:pointer;transition:border-color .15s}
+.st[data-s="2"]{--c:var(--s2);--soft:var(--s2-soft)}
+.st[data-s="3"]{--c:var(--s3);--soft:var(--s3-soft)}
+.st[aria-current="true"]{border-color:var(--c);box-shadow:0 0 0 4px var(--soft)}
+.st:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+.ring{width:96px;height:96px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{fill:none;stroke:var(--soft);stroke-width:9}
+.ring .bar{fill:none;stroke:var(--c);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .4s linear}
+.ring .t{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+.st.done .ring .t{color:var(--bad)}
+.st h2{font-size:20px}
+.st .num{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--c);font-weight:700}
+.st p{margin:2px 0 10px;color:var(--muted);font-size:15px}
+.ctrls{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;cursor:pointer}
+.btn{font-family:var(--body);font-weight:700;font-size:14px;border-radius:8px;padding:7px 12px;border:1.5px solid var(--c,var(--ink));background:transparent;color:var(--c,var(--ink))}
+.btn.solid{background:var(--c,var(--ink));color:var(--surface)}
+.btn:focus-visible{outline:3px solid var(--c,var(--ink));outline-offset:2px}
+.btn:disabled{opacity:.5;cursor:default}
+.rowbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.rowbar .note{color:var(--muted);font-size:14px}
+
+/* station panel */
+.panel{--c:var(--s1);--soft:var(--s1-soft);margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.panel[data-s="2"]{--c:var(--s2);--soft:var(--s2-soft)}
+.panel[data-s="3"]{--c:var(--s3);--soft:var(--s3-soft)}
+.phead{background:var(--soft);padding:22px clamp(16px,3vw,32px);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.phead h2{font-size:clamp(24px,3vw,32px);color:var(--ink)}
+.phead .eyebrow{color:var(--c);font-weight:700}
+.mini{font-family:var(--mono);font-weight:700;font-size:28px;font-variant-numeric:tabular-nums;color:var(--c)}
+.pbody{padding:24px clamp(16px,3vw,32px) 32px;display:grid;gap:26px}
+.objs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.obj{border-left:4px solid var(--c);padding:6px 12px;background:var(--bg);border-radius:0 8px 8px 0}
+.obj b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.obj span{font-size:15px}
+.plan{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.plan li{font-size:14px;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.plan li b{font-family:var(--mono);color:var(--c)}
+section.part{display:grid;gap:12px}
+.part > h3{font-size:21px;display:flex;align-items:baseline;gap:10px}
+.part > h3 .tag{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);letter-spacing:.08em}
+.prose{max-width:68ch}
+.passage{max-width:68ch;background:var(--bg);border-radius:10px;padding:18px 20px}
+.passage p{margin:0 0 12px}
+.passage p:last-child{margin:0}
+.passage h4{font-family:var(--display);font-size:22px;margin:0 0 4px}
+.pnum{font-family:var(--mono);font-size:12px;color:var(--c);font-weight:700;margin-right:6px}
+mark{background:var(--soft);color:inherit;border-bottom:2px solid var(--c);padding:0 2px}
+.es{color:var(--muted);font-style:italic;font-size:15px}
+.q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;max-width:760px}
+.q .stem{font-weight:700;margin-bottom:8px}
+.opts{display:grid;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);text-align:left;color:var(--ink)}
+.opt:hover{border-color:var(--c)}
+.opt[aria-pressed="true"]{border-color:var(--c);background:var(--soft)}
+.opt.right{border-color:var(--good)}
+.opt.wrong{border-color:var(--bad)}
+.opt .L{font-family:var(--mono);font-weight:700;color:var(--c);min-width:1.2em}
+.fb{font-size:14px;margin-top:6px;min-height:1em}
+.fb.ok{color:var(--good)} .fb.no{color:var(--bad)}
+.score{font-family:var(--mono);font-weight:700}
+.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;max-width:900px}
+.frame{background:var(--bg);border-radius:8px;padding:8px 12px;font-size:15px}
+.frame b{color:var(--c)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--c);box-shadow:0 0 0 3px var(--soft)}
+label.f{display:grid;gap:4px;font-weight:700;font-size:15px}
+label.f small{font-weight:400;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.rubric{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+.tbl{overflow-x:auto}
+.rubric th,.rubric td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.rubric th{background:var(--bg);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.checks{display:grid;gap:6px;max-width:760px}
+.checks label{display:flex;gap:10px;align-items:flex-start}
+.checks input{width:20px;height:20px;accent-color:var(--c);margin-top:3px;flex:none}
+.builder{display:grid;gap:8px;max-width:760px}
+.bank,.line{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;padding:8px;border-radius:8px}
+.bank{background:var(--bg)}
+.line{border:2px dashed var(--line)}
+.tile{font:inherit;font-size:16px;padding:6px 10px;border-radius:6px;border:1.5px solid var(--c);background:var(--surface);color:var(--ink)}
+.wc{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.wc b{color:var(--c)}
+.words{display:flex;flex-wrap:wrap;gap:6px}
+.words span{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--bg)}
+.callout{border:1.5px solid var(--c);border-radius:10px;padding:12px 16px;max-width:760px;background:var(--soft)}
+.callout b{color:var(--c)}
+
+.coach{border:2px solid var(--c);border-radius:14px;padding:18px clamp(14px,2.5vw,24px);display:grid;gap:14px}
+.coach-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.coach-h h3{font-size:22px}
+.badge{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--c);color:var(--surface);border-radius:999px;padding:4px 10px}
+.formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:18px}
+.formula span{border:1.5px solid var(--line);border-radius:8px;padding:6px 12px;background:var(--bg)}
+.formula span.hl{background:var(--soft);border-color:var(--c);color:var(--c)}
+.formula i{font-style:normal;color:var(--muted)}
+.steps{margin:0;padding-left:1.4em;display:grid;gap:6px;max-width:72ch}
+.steps li::marker{font-family:var(--mono);font-weight:700;color:var(--c)}
+.model{background:var(--bg);border-radius:10px;padding:16px 18px;max-width:780px;display:grid;gap:8px}
+.model p{margin:0}
+.think{margin:0;padding-left:1.4em;display:grid;gap:6px}
+.think li::marker{color:var(--c);font-weight:700}
+.note{color:var(--muted);font-size:14px}
+.hints{margin:8px 0 0;padding-left:1.4em;display:grid;gap:4px;font-size:15px}
+.hints:empty{display:none}
+.hints li{background:var(--soft);border-radius:6px;padding:4px 8px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.wpill{font-family:var(--mono);font-size:13px;background:var(--soft);color:var(--c);border:1px solid var(--c);border-radius:999px;padding:1px 9px;margin-left:4px;white-space:nowrap}
+.conj{min-width:520px}
+details.tcoach{border:1px dashed var(--line);border-radius:12px;padding:12px 16px;background:var(--bg)}
+details.tcoach summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:18px;color:var(--c)}
+details.tcoach summary:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:12px}
+.tgrid h5{margin:0 0 4px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tgrid ul{margin:0;padding-left:1.1em;font-size:15px;display:grid;gap:4px}
+
+.player{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--bg);display:grid;gap:12px}
+.pl-stage{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px;align-items:end}
+@media (max-width:640px){.pl-stage{grid-template-columns:1fr}.pl-teacher{flex-direction:row;align-items:center}.pl-fig{width:96px}}
+.pl-teacher{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pl-fig{width:150px;max-width:100%}
+.tsvg{width:100%;height:auto;display:block}
+.pl-name{font-family:var(--display);font-weight:700;text-align:center;line-height:1.2}
+.pl-name small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c);font-weight:700}
+.mouth{transform-origin:80px 92px;transform-box:view-box}
+.talking .mouth{animation:talk .22s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1.6)}}
+.eyes{transform-origin:80px 72px;transform-box:view-box;animation:blink 5s infinite}
+@keyframes blink{0%,96%,100%{transform:scaleY(1)}98%{transform:scaleY(.1)}}
+.arm{transform-origin:116px 136px;transform-box:view-box}
+.talking .arm{animation:point 1.4s ease-in-out infinite alternate}
+@keyframes point{from{transform:rotate(0)}to{transform:rotate(-8deg)}}
+.pl-board{--chalk:#eef3ee;background:#1f3b33;color:var(--chalk);border:8px solid #6b4a2e;border-radius:10px;min-height:250px;padding:18px 20px;display:grid;align-content:start;gap:10px;min-width:0}
+.pl-step{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a9d8c9}
+.pl-content{display:grid;gap:10px;font-size:18px}
+.pl-content p{margin:0}
+.bh{font-family:var(--display);font-size:clamp(26px,4vw,38px);margin:0;color:#fff}
+.bsub{font-size:20px;color:#ffe08a}
+.bnote{font-size:15px;color:#cfe3dc}
+.bsent{font-family:var(--display);font-size:clamp(19px,2.6vw,24px);color:#fff;line-height:1.35}
+.bsent u{text-decoration-color:#ffe08a;text-decoration-thickness:3px;text-underline-offset:4px}
+.bsent.bad{color:#ffb4b4}.bsent.good{color:#b8f0c8}
+.bcomma{color:#ffe08a;font-size:1.4em;font-weight:800}
+.bq{color:#ffe08a;font-weight:700}
+.bbig{font-family:var(--display);font-size:20px;color:#ffe08a;line-height:1.35}
+.bform{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--display);font-weight:700;font-size:20px}
+.bform span{border:2px dashed #cfe3dc;border-radius:8px;padding:6px 12px}
+.bform span.on{border-style:solid;border-color:#ffe08a;color:#ffe08a}
+.bcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.bcols div{border:1px solid #4f7a6c;border-radius:8px;padding:8px 10px}
+.bcols b{color:#ffe08a}
+.bchips{display:flex;flex-wrap:wrap;gap:8px}
+.bchips span{border:1.5px solid #cfe3dc;border-radius:999px;padding:6px 12px;font-size:16px}
+.bchips b{color:#ffe08a}
+.blist{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.blist b{color:#ffe08a}
+.pl-board .btn{--c:#ffe08a;justify-self:start}
+.pl-bubble{position:relative;background:var(--surface);border:1.5px solid var(--c);border-radius:12px;padding:12px 16px}
+.pl-bubble::before{content:"";position:absolute;top:-9px;left:72px;width:16px;height:16px;background:var(--surface);border-left:1.5px solid var(--c);border-top:1.5px solid var(--c);transform:rotate(45deg)}
+.pl-say{margin:0;font-size:17px}
+.pl-es{margin:6px 0 0}
+.pl-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pl-dots{display:flex;gap:6px;margin-left:auto}
+.pl-dot{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--c);background:transparent;padding:0}
+.pl-dot[aria-current="true"]{background:var(--c)}
+@media (prefers-reduced-motion:reduce){.talking .mouth,.talking .arm,.eyes{animation:none}}
+
+.challenge{border:2px dashed var(--c);border-radius:14px;padding:18px clamp(14px,2.5vw,24px);display:grid;gap:12px;background:var(--soft)}
+.challenge .coach-h h3{font-size:20px}
+.chart{margin:0;max-width:640px;background:var(--bg);border-radius:10px;padding:12px 14px;overflow-x:auto}
+.chart figcaption{font-weight:700;font-size:15px;margin-bottom:6px}
+.chart svg{width:100%;min-width:420px;height:auto;display:block}
+.chart .grid line{stroke:var(--line);stroke-width:1}
+.chart .ax text{fill:var(--muted);font-family:var(--mono);font-size:11px;text-anchor:middle}
+.chart .lbl text{fill:var(--ink);font-family:var(--body);font-size:14px;text-anchor:end}
+.chart .bars rect{fill:var(--c)}
+.chart .bars rect.lo{fill:var(--bad)}
+.chart .val text{fill:var(--ink);font-family:var(--mono);font-size:13px;font-weight:700}
+.msg{display:inline-block;background:var(--soft);border-radius:16px 16px 16px 4px;padding:8px 14px;margin:4px 0 8px;font-weight:400;max-width:100%}
+.msg .who{display:block;font-family:var(--mono);font-size:11px;color:var(--c);font-weight:700;letter-spacing:.06em}
+.sign{display:inline-block;border:3px solid var(--ink);border-radius:6px;padding:8px 14px;margin:4px 0 8px;font-family:var(--display);font-weight:800;text-align:center;letter-spacing:.03em}
+
+.oneshot{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em}
+.opt.reveal{border-style:dashed}
+.q.got{border-color:var(--good)}.q.miss{border-color:var(--bad)}
+.srow.missed{border-color:var(--bad)}
+.sb:disabled,.xbtn:disabled{cursor:default;opacity:.85}
+.grade{border:2px solid var(--c);border-radius:14px;padding:16px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;background:var(--surface)}
+.grade h3{font-size:20px;margin:6px 0 2px}
+.gmsg{margin:0 0 8px;color:var(--muted);font-size:15px}
+.gbar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden;max-width:520px}
+.gbar i{display:block;height:100%;width:0;background:var(--c);transition:width .4s}
+.gr{display:grid;justify-items:end;gap:2px}
+.gnum{font-family:var(--mono);font-weight:700;font-size:30px;font-variant-numeric:tabular-nums;color:var(--c)}
+.gpct{font-family:var(--display);font-weight:800;font-size:20px}
+.grade.fin{background:var(--soft)}
+@media (max-width:560px){.grade{grid-template-columns:1fr}.gr{justify-items:start}}
+
+.game{border:2px solid var(--c);border-radius:14px;padding:14px;display:grid;gap:12px;background:linear-gradient(160deg,var(--soft),var(--surface) 70%);max-width:900px;transition:box-shadow .15s}
+.ghud{display:flex;flex-wrap:wrap;gap:8px}
+.ghud span{font-family:var(--mono);font-size:13px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:4px 12px}
+.ghud b{font-size:16px;color:var(--c);font-variant-numeric:tabular-nums}
+.game.hurry .ghud span:first-child{border-color:var(--bad);color:var(--bad)}
+.game.flash-ok{box-shadow:0 0 0 5px color-mix(in srgb,var(--good) 45%,transparent)}
+.game.flash-no{box-shadow:0 0 0 5px color-mix(in srgb,var(--bad) 45%,transparent)}
+.garea:empty{display:none}
+.gq{font-family:var(--display);font-weight:700;font-size:clamp(20px,2.6vw,26px);margin:0;text-wrap:balance}
+.gq.small{font-size:16px;font-family:var(--body);color:var(--muted)}
+.gopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:8px;margin-top:10px}
+.gbtn{font:inherit;font-weight:700;font-size:17px;padding:12px;border-radius:10px;border:2px solid var(--c);background:var(--surface);color:var(--ink);cursor:pointer}
+.gbtn:hover:not(:disabled){background:var(--soft)}
+.gbtn.ok{background:var(--good);border-color:var(--good);color:var(--surface)}
+.gbtn.no{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.gstart{justify-self:start;font-size:16px;padding:10px 18px}
+.gend{background:var(--surface);border-radius:10px;padding:12px 16px}
+.gend p{margin:4px 0}
+.gbig{font-family:var(--display);font-weight:800;font-size:34px;color:var(--c)}
+.hunt{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.hw{font:inherit;font-size:clamp(20px,2.6vw,26px);font-family:var(--display);font-weight:700;padding:6px 12px;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.hw:hover{border-color:var(--c)}
+.hw.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 18%,var(--surface))}
+.hw.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--surface));text-decoration:line-through}
+.gfix{margin:8px 0 0;font-size:18px}
+.jgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;overflow-x:auto}
+.jcat{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:center;background:var(--c);color:var(--surface);border-radius:6px;padding:8px 2px;overflow-wrap:anywhere}
+.jtile{font-family:var(--display);font-weight:800;font-size:clamp(16px,2.4vw,24px);padding:14px 2px;border-radius:8px;border:2px solid var(--c);background:var(--surface);color:var(--c);cursor:pointer}
+.jtile:hover:not(:disabled){background:var(--soft)}
+.jtile.used{cursor:default}
+.jtile.used:not(.won):not(.lost){background:var(--soft);opacity:.6}
+.jtile.won{background:var(--good);border-color:var(--good);color:var(--surface)}
+.jtile.lost{background:var(--bg);border-color:var(--line);color:var(--muted)}
+.jq{background:var(--surface);border:2px solid var(--ink);border-radius:12px;padding:14px;display:grid;gap:8px}
+.jqh{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.jplay{justify-self:start}
+@media (prefers-reduced-motion:reduce){.game{transition:none}}
+
+.submit{margin-top:26px;background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:22px clamp(16px,3vw,32px);display:grid;gap:14px}
+.sub-h{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sub-h h2{font-size:clamp(22px,3vw,28px)}
+.submit select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:10px 12px}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px}
+.sum{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--bg);min-width:0}
+.sum-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sum-h b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cp{padding:2px 8px;font-size:14px;--c:var(--ink)}
+.sum-v{font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:7.5em;overflow:auto}
+.sum-v.empty{color:var(--bad);font-style:italic}
+.btn.gold{background:#C9A227;border-color:#C9A227;color:#1E2761;text-decoration:none;font-size:16px;padding:10px 18px}
+.btn.gold:focus-visible{outline:3px solid #1E2761;outline-offset:2px}
+
+.sent{border:2px solid var(--good);border-radius:10px;padding:10px 14px;background:color-mix(in srgb,var(--good) 12%,var(--surface))}
+.linkbtn{font:inherit;background:none;border:none;padding:0;color:var(--s1);text-decoration:underline;cursor:pointer;font-weight:700}
+.btn.gold:disabled{opacity:.7}
+footer{margin-top:28px;color:var(--muted);font-size:14px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.wcard{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);display:grid;gap:3px;border-top:4px solid var(--c)}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wtop b{font-family:var(--display);font-size:20px;color:var(--c)}
+.spk-btn{padding:3px 8px;font-size:14px}
+.wm{font-size:15px}.wex{font-size:14px;color:var(--muted)}
+.match{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:12px;max-width:820px}
+.mcol{display:grid;gap:6px;align-content:start}
+.mitem{font:inherit;font-size:15px;text-align:left;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.mitem.mw{font-weight:700}
+.mitem.sel{border-color:var(--c);background:var(--soft)}
+.mitem.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface));cursor:default}
+.mitem.bad{border-color:var(--bad);animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;max-width:860px}
+.srow.solved{border-color:var(--good)}
+.srow .fb{grid-column:1/-1;margin:0}
+.sbtns{display:flex;gap:6px;flex-wrap:wrap}
+.sb.right{border-color:var(--good);background:var(--good);color:var(--surface)}
+.sb.wrong{border-color:var(--bad);color:var(--bad)}
+@media (max-width:560px){.srow{grid-template-columns:1fr}}
+.sorter{display:grid;gap:8px}
+.tour{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}
+.dom .frames,.spk .frames{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.dom{border:1.5px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;align-content:start;min-width:0}
+.dom .q{max-width:none}
+.dom-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dom-h h4{margin:0;font-family:var(--display);font-size:18px}
+.dtag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--c);color:var(--surface);border-radius:6px;padding:3px 8px}
+.tip{margin:0;font-size:15px;background:var(--soft);border-radius:8px;padding:6px 10px}
+.tip b{color:var(--c)}
+.pic{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-width:100%}
+.pic svg{display:block;width:100%;height:auto}
+.spk{display:grid;gap:10px;border:1.5px dashed var(--line);border-radius:10px;padding:12px}
+.spk-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.spk-clock{display:flex;align-items:baseline;gap:10px;background:var(--bg);border-radius:8px;padding:6px 12px}
+.spk-ph{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.spk-t{font-family:var(--mono);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums}
+.spk.talk .spk-clock{background:var(--c)}.spk.talk .spk-ph,.spk.talk .spk-t{color:var(--surface)}
+.spk.fin .spk-t{color:var(--good)}
+.spk-checks{font-size:15px}
+.xorow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px;align-items:stretch}
+.xbtn{font:inherit;font-weight:700;width:40px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--bad);cursor:pointer}
+.xorow.out .opt{text-decoration:line-through;opacity:.45}
+.xorow.out .xbtn{background:var(--bad);color:var(--surface);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.badtxt{font-family:var(--mono);font-weight:500;background:color-mix(in srgb,var(--bad) 10%,var(--surface));padding:2px 6px;border-radius:4px}
+.stile{text-align:left;width:100%;line-height:1.4}
+.ordline,.ordbank{flex-direction:column}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Laurel High School · EL Block 9–12 · ELPA21 Prep</div>
+      <h1>ELPA21 Prep Stations</h1>
+      <p>Three 30-minute stations with teacher coaches: vocabulary, tasks and test tips, and writing basics. Every question is autograded, and you get <b>one chance</b> per question.</p>
+    </div>
+    <div class="meta"><a class="chip" href="#submit" style="color:var(--ink);font-weight:700;text-decoration:none">📤 Submit work</a><span class="chip">90 min total</span><span class="chip">MS ELP Standards</span><span class="chip">Chromebook ready</span></div>
+  </header>
+
+  <div class="board" id="board"></div>
+  <div class="rowbar">
+    <button class="btn solid" id="allStart" style="--c:var(--ink)">Start all three</button>
+    <button class="btn" id="allPause" style="--c:var(--ink)">Pause all</button>
+    <button class="btn" id="allReset" style="--c:var(--ink)">Reset all</button>
+    <button class="btn" id="sound" style="--c:var(--ink)" aria-pressed="true">Sound: on</button>
+    <span class="note">Tap a station to open it. A chime plays when a timer reaches 0:00.</span>
+  </div>
+
+  <!-- STATION 1: VOCABULARY -->
+  <article class="panel" data-s="1" id="p1">
+    <div class="phead">
+      <div><div class="eyebrow">Station 1 · ELPA21 Vocabulary</div><h2>Words the Test Uses</h2></div>
+      <div class="mini" data-mini="1">30:00</div>
+    </div>
+    <div class="pbody">
+      <div class="objs">
+        <div class="obj"><b>Content objective</b><span>I can explain what ELPA21 direction words ask me to do.</span></div>
+        <div class="obj"><b>Language objective</b><span>I can figure out new words using context clues, word parts and cognates.</span></div>
+        <div class="obj"><b>Standards</b><span>MS ELP 8 (word meaning) · L.9-10.4a–d · RI.9-10.4</span></div>
+      </div>
+      <ul class="plan"><li><b>0–7</b> Coach lesson</li><li><b>7–9</b> Word wall</li><li><b>9–12</b> Match</li><li><b>12–16</b> Decoder</li><li><b>16–19</b> Context clues</li><li><b>19–22</b> Word parts</li><li><b>22–25</b> Cognates</li><li><b>25–28</b> 🎮 Word Rush</li><li><b>28–30</b> Exit</li></ul>
+
+      <section class="part">
+        <h3><span class="tag">LESSON</span>Watch the Coach: Ms. Alvarez</h3>
+        <p class="prose">Put on headphones and press <b>Play lesson</b>. The coach stops at “Your turn” so you can talk with a partner. Captions are always on.</p>
+        <div class="player" id="lesson1"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">WORD WALL</span>12 Direction Words</h3>
+        <p class="prose">These words tell you <b>what to do</b> on the test. Tap 🔊 to hear each word. Say it out loud two times.</p>
+        <div class="wall" id="wall"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">MATCH</span>Word to Meaning <span class="score" id="matchScore"></span></h3>
+        <p class="prose">Tap a word, then tap its meaning. Correct pairs turn green.</p>
+        <div class="match" id="match"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">DECODE</span>What Does the Question Want? <span class="score" id="decScore"></span></h3>
+        <p class="prose">Read each test question. Choose what it is <b>really asking you to do</b>. <b>One chance per question</b>, so read every choice first.</p>
+        <div id="qDec"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">CONTEXT</span>Use the Clues <span class="score" id="ctxScore"></span></h3>
+        <p class="prose">The <mark>underlined word</mark> may be new. Use the other words in the sentence to figure it out.</p>
+        <div id="qCtx"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">WORD PARTS</span>Break It Down <span class="score" id="wpScore"></span></h3>
+        <div class="words">
+          <span><b>un-</b> not</span><span><b>re-</b> again</span><span><b>pre-</b> before</span><span><b>mis-</b> wrongly</span><span><b>-less</b> without</span><span><b>-ful</b> full of</span><span><b>-able</b> can be</span><span><b>-tion</b> the act of</span>
+        </div>
+        <div id="qWp"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">COGNATES</span>Friend or False Friend? <span class="score" id="cogScore"></span></h3>
+        <p class="prose">Many English words look like Spanish words and mean the same thing. These are <b>cognates</b>, and they help you. Some only <i>look</i> the same. Those are <b>false friends</b>.<br><span class="es">Los cognados se parecen y significan lo mismo. Los falsos amigos se parecen pero no significan lo mismo.</span></p>
+        <div class="sorter" id="cog"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">GAME</span>Word Rush</h3>
+        <p class="prose">You have <b>60 seconds</b>. Read the meaning and tap the matching test word. Each right answer is worth 10 points, and a streak adds bonus points. Play twice and beat your best score.</p>
+        <div class="game" id="game1"><div class="ghud"><span>⏱ <b data-h="t">60</b></span><span>Score <b data-h="s">0</b></span><span>Streak <b data-h="k">0</b></span><span>Best <b data-h="b">0</b></span></div><div class="garea"></div><div class="gend" hidden></div><button type="button" class="btn solid gstart">▶ Start Word Rush</button></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">EXIT</span>Use the Words</h3>
+        <div class="callout"><b>Write 2 sentences.</b> Use two direction words from the word wall to tell a friend how to answer a test question. <i>Example: “First, <u>identify</u> the main idea. Then <u>support</u> it with a detail.”</i></div>
+        <textarea id="vExit" rows="3" aria-label="Two sentences with direction words"></textarea>
+        <div class="rowbar" style="margin:0"><span class="wc" id="vExitWc">Direction words used: <b>0</b> / 2</span></div>
+      </section>
+
+      <section class="grade" id="grade1" aria-live="polite">
+        <div class="gl"><span class="badge">Autograde</span><h3>Station 1 Score · Vocabulary</h3><p class="gmsg"></p><div class="gbar"><i></i></div></div>
+        <div class="gr"><span class="gnum">0 / 0</span><span class="gpct">0%</span></div>
+      </section>
+
+      <section class="challenge">
+        <div class="coach-h"><span class="badge">Finished early?</span><h3>Challenge: Be the Test Writer</h3></div>
+        <p class="prose">Write <b>three test questions</b> about any short story you know. Each question must use a different direction word (for example, <i>summarize, infer, compare</i>). Trade with a partner. Your partner tells you what each question wants before answering it.</p>
+        <textarea id="vCh" rows="5" aria-label="Your three test questions"></textarea>
+      </section>
+    </div>
+  </article>
+
+  <!-- STATION 2: TASKS + TIPS -->
+  <article class="panel" data-s="2" id="p2" hidden>
+    <div class="phead">
+      <div><div class="eyebrow">Station 2 · ELPA21 Tasks + Test Tips</div><h2>Know the Test, Beat the Test</h2></div>
+      <div class="mini" data-mini="2">30:00</div>
+    </div>
+    <div class="pbody">
+      <div class="objs">
+        <div class="obj"><b>Content objective</b><span>I can describe the four ELPA21 domains and try one task from each.</span></div>
+        <div class="obj"><b>Language objective</b><span>I can explain a test-taking strategy to a partner using “First… Then… Finally…”</span></div>
+        <div class="obj"><b>Standards</b><span>MS ELP 1, 2, 3, 4, 8 · RI.9-10.1 · SL.9-10.1</span></div>
+      </div>
+      <ul class="plan"><li><b>0–6</b> Coach lesson</li><li><b>6–14</b> Task tour</li><li><b>14–17</b> Smart or risky?</li><li><b>17–20</b> Cross-out drill</li><li><b>20–26</b> 🎮 Showdown</li><li><b>26–30</b> Speaking + exit</li></ul>
+
+      <section class="part">
+        <h3><span class="tag">LESSON</span>Watch the Coach: Mr. Brooks</h3>
+        <p class="prose">Press <b>Play lesson</b>. Mr. Brooks explains the four parts of the test and his best tips.</p>
+        <div class="player" id="lesson2"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">TOUR</span>Try One Task From Each Domain</h3>
+        <p class="prose">Work through all four cards. Read the <b>Tip</b> on each card <i>before</i> you answer.</p>
+        <div class="tour">
+          <div class="dom">
+            <div class="dom-h"><span class="dtag">Reading</span><h4>Read a short text and answer</h4></div>
+            <p class="tip"><b>Tip:</b> Read the question first. Then read the text looking for the answer.</p>
+            <div class="passage"><p>Starting next Monday, the library will open at 7:15 a.m. instead of 7:45 a.m. Students can use the computers to finish homework before class. Food and drinks are still not allowed inside.</p></div>
+            <div id="tR"></div>
+          </div>
+          <div class="dom">
+            <div class="dom-h"><span class="dtag">Listening</span><h4>Listen and choose</h4></div>
+            <p class="tip"><b>Tip:</b> Before you press Play, read the question so you know what to listen for.</p>
+            <div class="rowbar" style="margin:0"><button class="btn solid" id="tLplay">▶ Play</button><button class="btn" id="tLscript">Show script</button><span class="note" id="tLmsg"></span></div>
+            <div class="passage" id="tLtext" hidden><p></p></div>
+            <div id="tL"></div>
+          </div>
+          <div class="dom">
+            <div class="dom-h"><span class="dtag">Speaking</span><h4>Answer out loud</h4></div>
+            <p class="tip"><b>Tip:</b> Repeat the question in your first sentence. Keep talking until you give a reason and an example.</p>
+            <div class="callout"><b>Prompt.</b> Your friend is new at school. Tell your friend about one place at school that is important to know, and explain why.</div>
+            <div class="spk" data-think="15" data-talk="45"></div>
+          </div>
+          <div class="dom">
+            <div class="dom-h"><span class="dtag">Writing</span><h4>Write about a picture</h4></div>
+            <p class="tip"><b>Tip:</b> Write complete sentences. Tell who, what, and where. Then check capitals and periods.</p>
+            <figure class="pic" aria-label="Drawing of two students at a table in a library with a laptop and books; a clock on the wall shows 7:20.">
+              <svg viewBox="0 0 320 170" role="img">
+                <rect x="0" y="0" width="320" height="170" fill="var(--bg)"/>
+                <rect x="20" y="20" width="70" height="120" rx="4" fill="var(--soft)" stroke="var(--c)" stroke-width="2"/>
+                <g fill="var(--c)"><rect x="26" y="30" width="10" height="26"/><rect x="38" y="34" width="8" height="22"/><rect x="48" y="28" width="12" height="28"/><rect x="62" y="32" width="9" height="24"/><rect x="26" y="74" width="12" height="26"/><rect x="40" y="70" width="8" height="30"/><rect x="50" y="76" width="14" height="24"/></g>
+                <circle cx="265" cy="38" r="20" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><path d="M265 38 V24 M265 38 l8 5" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+                <rect x="110" y="112" width="190" height="10" rx="3" fill="var(--muted)"/><rect x="122" y="122" width="8" height="38" fill="var(--muted)"/><rect x="280" y="122" width="8" height="38" fill="var(--muted)"/>
+                <rect x="190" y="88" width="46" height="24" rx="2" fill="var(--ink)"/><rect x="186" y="110" width="54" height="4" rx="2" fill="var(--ink)"/>
+                <circle cx="150" cy="70" r="13" fill="#c98f63"/><rect x="138" y="84" width="24" height="30" rx="8" fill="var(--s1)"/>
+                <circle cx="268" cy="72" r="13" fill="#6b4228"/><rect x="256" y="86" width="24" height="28" rx="8" fill="var(--s3)"/>
+                <rect x="140" y="104" width="30" height="8" fill="var(--s2)"/>
+              </svg>
+            </figure>
+            <label class="f">Write 2 sentences about the picture.<textarea id="tW" rows="3"></textarea></label>
+            <div class="rowbar" style="margin:0"><button class="btn solid" id="tWchk">Coach check</button></div>
+            <div class="fb" id="tWfb"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">TIPS</span>Smart Move or Risky Move? <span class="score" id="tipScore"></span></h3>
+        <p class="prose">Sort each test-day choice. Read the coach’s reason after each one.</p>
+        <div class="sorter" id="tips"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STRATEGY</span>Cross-Out Drill <span class="score" id="xoScore"></span></h3>
+        <p class="prose">Strong test takers <b>cross out</b> answers they know are wrong. Tap <b>✕</b> on <b>two wrong answers</b> first. Then the best answer unlocks.</p>
+        <div class="passage"><p>Many teens say they cannot sleep without their phones nearby. However, doctors say the light from a screen tells the brain to stay awake. A study of high school students found that those who put their phones in another room fell asleep faster and felt less tired at school. Some students now use an old-style alarm clock so the phone can stay out of the bedroom.</p></div>
+        <div id="xo"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">GAME</span>Test-Day Showdown</h3>
+        <p class="prose">A quiz-show board with 15 questions in 5 categories. Pick any tile. Harder questions are worth more points. You get <b>one chance per tile</b>. Play with a partner and take turns choosing.</p>
+        <div class="game" id="game2">
+          <div class="ghud"><span>Score <b data-h="js">0</b></span><span>Tiles left <b data-h="jl">15</b></span><span>Best <b data-h="jb">0</b></span></div>
+          <div class="jgrid"></div>
+          <div class="jq" hidden></div>
+          <div class="gend jend" hidden></div>
+        </div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">SPEAK</span>Speaking Round 2</h3>
+        <p class="prose">Use everything from the lesson: restate the question, give a reason, give an example, and use a linking word.</p>
+        <div class="callout"><b>Prompt.</b> Some students study the night before a test. Others study a little every day. Which is better? Explain your opinion.</div>
+        <div class="spk" data-think="20" data-talk="60"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">EXIT</span>My Top 3 Tips</h3>
+        <label class="f">Write your 3 most useful tips in your own words. <small>First, … Then, … Finally, …</small><textarea id="tExit" rows="4"></textarea></label>
+      </section>
+
+      <section class="grade" id="grade2" aria-live="polite">
+        <div class="gl"><span class="badge">Autograde</span><h3>Station 2 Score · Tasks + Test Tips</h3><p class="gmsg"></p><div class="gbar"><i></i></div></div>
+        <div class="gr"><span class="gnum">0 / 0</span><span class="gpct">0%</span></div>
+      </section>
+
+      <section class="challenge">
+        <div class="coach-h"><span class="badge">Finished early?</span><h3>Challenge: Teach a Tip</h3></div>
+        <p class="prose">Choose one tip. Make a 30-second “coach video” script that teaches it to a new student. Include <b>what to do</b>, <b>why it works</b>, and <b>an example</b>. Then read it aloud to your partner like a coach.</p>
+        <textarea id="tCh" rows="5" aria-label="Your coach script"></textarea>
+        <span class="wc" id="tChWc"><b>0</b> words · aim for 60–80</span>
+      </section>
+    </div>
+  </article>
+
+  <!-- STATION 3: WRITING BASICS -->
+  <article class="panel" data-s="3" id="p3" hidden>
+    <div class="phead">
+      <div><div class="eyebrow">Station 3 · Writing Basics for ELPA21</div><h2>Build a Strong Paragraph</h2></div>
+      <div class="mini" data-mini="3">30:00</div>
+    </div>
+    <div class="pbody">
+      <div class="objs">
+        <div class="obj"><b>Content objective</b><span>I can write a paragraph with a topic sentence, details and a closing.</span></div>
+        <div class="obj"><b>Language objective</b><span>I can write complete sentences with correct capitals, end marks and linking words.</span></div>
+        <div class="obj"><b>Standards</b><span>MS ELP 3, 9, 10 · W.9-10.2 · L.9-10.1, L.9-10.2</span></div>
+      </div>
+      <ul class="plan"><li><b>0–7</b> Coach lesson</li><li><b>7–9</b> Sentence or fragment?</li><li><b>9–12</b> Fix it</li><li><b>12–14</b> Stretch it</li><li><b>14–16</b> Order it</li><li><b>16–20</b> 🎮 Error Hunt</li><li><b>20–30</b> Write it + check</li></ul>
+
+      <section class="part">
+        <h3><span class="tag">LESSON</span>Watch the Coach: Ms. Patel</h3>
+        <p class="prose">Press <b>Play lesson</b>. Ms. Patel shows the writing basics ELPA21 scorers look for.</p>
+        <div class="player" id="lesson3"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STEP 1</span>Sentence or Fragment? <span class="score" id="frScore"></span></h3>
+        <p class="prose">A complete sentence needs a <b>subject</b>, a <b>verb</b> and a <b>complete thought</b>. Sort each one.</p>
+        <div class="sorter" id="frag"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STEP 2</span>Fix It <span class="score" id="fixScore"></span></h3>
+        <p class="prose">Each sentence has <b>one or two mistakes</b> (capital letter, end mark, verb, or a missing word). Type the corrected sentence.</p>
+        <div id="fix"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STEP 3</span>Stretch It</h3>
+        <p class="prose">Short sentences get low scores. Make this sentence longer by answering <b>when</b>, <b>where</b> and <b>why</b>.</p>
+        <div class="callout"><b>Start:</b> <i>Maria studied.</i> → <b>Example:</b> <i>After school on Tuesday, Maria studied in the library because she had a science test the next day.</i></div>
+        <div class="grid3">
+          <label class="f">When?<input type="text" id="stW1" placeholder="Every morning"></label>
+          <label class="f">Where?<input type="text" id="stW2" placeholder="at the kitchen table"></label>
+          <label class="f">Why?<input type="text" id="stW3" placeholder="because…"></label>
+        </div>
+        <label class="f">Your stretched sentence about <i>The boy ran.</i><input type="text" id="stOut"></label>
+        <div class="rowbar" style="margin:0"><span class="wc" id="stWc"><b>0</b> words · goal 12+</span><button class="btn solid" id="stChk">Coach check</button></div>
+        <div class="fb" id="stFb"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STEP 4</span>Order the Paragraph</h3>
+        <p class="prose">Tap the sentences in the correct order: <b>topic sentence → detail → detail → example → closing</b>.</p>
+        <div class="builder q" id="ord">
+          <div class="line ordline" aria-label="Your paragraph"></div>
+          <div class="bank ordbank" aria-label="Sentence bank"></div>
+          <div class="rowbar" style="margin:0"><button class="btn solid" id="ordChk">Check</button><button class="btn" id="ordClr">Clear</button></div>
+          <div class="fb" id="ordFb"></div>
+        </div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">GAME</span>Error Hunt</h3>
+        <p class="prose">You have <b>60 seconds</b>. Each sentence has <b>one</b> mistake. Tap the wrong word as fast as you can, and the fix appears after each tap. Watch for verbs, capitals and end marks.</p>
+        <div class="game" id="game3"><div class="ghud"><span>⏱ <b data-h="t">60</b></span><span>Score <b data-h="s">0</b></span><span>Streak <b data-h="k">0</b></span><span>Best <b data-h="b">0</b></span></div><div class="garea"></div><div class="gend" hidden></div><button type="button" class="btn solid gstart">▶ Start Error Hunt</button></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">STEP 5</span>Write It</h3>
+        <div class="callout"><b>Prompt.</b> Describe one thing that helps you learn English, and explain why it helps you. Write <b>one paragraph of 5–7 sentences</b>.</div>
+        <div class="grid2">
+          <label class="f">Topic sentence <small>One thing that helps me learn English is…</small><input type="text" id="pT"></label>
+          <label class="f">Detail 1 <small>First, …</small><input type="text" id="pD1"></label>
+          <label class="f">Detail 2 <small>Also, …</small><input type="text" id="pD2"></label>
+          <label class="f">Example <small>For example, …</small><input type="text" id="pEx"></label>
+          <label class="f">Closing <small>That is why…</small><input type="text" id="pC"></label>
+        </div>
+        <div class="rowbar" style="margin:0"><button class="btn" id="pJoin">Put my plan into a paragraph ↓</button></div>
+        <textarea id="pDraft" rows="8" aria-label="Your paragraph"></textarea>
+        <div class="rowbar" style="margin:0"><span class="wc" id="pStats"><b>0</b> sentences · <b>0</b> words · linking words <b>0</b></span><button class="btn solid" id="pChk">Coach check</button><button class="btn" id="pCopy">Copy my paragraph</button><span class="note" id="pMsg"></span></div>
+        <div class="fb" id="pFb"></div>
+      </section>
+
+      <section class="part">
+        <h3><span class="tag">EXIT</span>Check Before You Submit</h3>
+        <div class="checks">
+          <label><input type="checkbox">My first sentence tells the topic.</label>
+          <label><input type="checkbox">I have at least two details and one example.</label>
+          <label><input type="checkbox">I used linking words (first, also, for example, that is why).</label>
+          <label><input type="checkbox">Every sentence has a subject and a verb.</label>
+          <label><input type="checkbox">Every sentence starts with a capital and ends with a period.</label>
+          <label><input type="checkbox">My last sentence closes the paragraph.</label>
+        </div>
+      </section>
+
+      <section class="grade" id="grade3" aria-live="polite">
+        <div class="gl"><span class="badge">Autograde</span><h3>Station 3 Score · Writing Basics</h3><p class="gmsg"></p><div class="gbar"><i></i></div></div>
+        <div class="gr"><span class="gnum">0 / 0</span><span class="gpct">0%</span></div>
+      </section>
+
+      <section class="challenge">
+        <div class="coach-h"><span class="badge">Finished early?</span><h3>Challenge: Level Up Your Paragraph</h3></div>
+        <p class="prose">Rewrite your paragraph to sound like a Level 4–5 writer: add <b>two complex sentences</b> (because, although, when, if), <b>two academic words</b> from Station 1 (explain, important, describe, support…), and <b>one sentence that answers a different opinion</b> (“Some people think…, but…”).</p>
+        <textarea id="wCh" rows="7" aria-label="Leveled-up paragraph"></textarea>
+        <span class="wc" id="wChWc"><b>0</b> words</span>
+      </section>
+    </div>
+  </article>
+
+
+  <section class="submit" id="submit">
+    <div class="sub-h"><span class="badge" style="--c:var(--ink)">Turn it in</span><h2>Submit Your Work to the Teacher</h2></div>
+    <p class="prose">When you finish all three stations, type your name and choose your class period. Then press the gold <b>Submit my scores</b> button. Your scores and your writing go straight to your teacher.<br><span class="es">Cuando termines, escribe tu nombre y periodo y presiona el botón dorado. Tus resultados se envían a tu maestro.</span></p>
+    <div class="grid2">
+      <label class="f">Your full name<input type="text" id="subName" autocomplete="name"></label>
+      <label class="f">Class period<select id="subPer"><option value="">Choose…</option><option>1st</option><option>2nd</option><option>3rd</option><option>4th</option></select></label>
+    </div>
+    <div class="sumgrid" id="sumgrid"></div>
+    <div class="rowbar" style="margin:0">
+      <button type="button" class="btn gold" id="subSend">📤 Submit my scores</button>
+      <span class="note" id="subMsg"></span>
+    </div>
+    <div class="sent" id="subSent" hidden></div>
+    <p class="note">Backup plan: if the button does not work, <a id="subGo" href="https://form.jotform.com/263087049601053" target="_blank" rel="noopener">open the Jotform here</a> (your work fills in automatically), check the boxes, and press Submit there. You can also <button type="button" class="linkbtn" id="subCopy">copy all your work</button> and paste it in.</p>
+  </section>
+
+  <footer>ELPA21 Prep Stations · EL Publishing · Laurel High School</footer>
+</div>
+
+<script>
+(()=>{
+const DUR=30*60*1000;
+const STATIONS=[
+ {n:1,title:"ELPA21 Vocabulary",sub:"Coach: Ms. Alvarez"},
+ {n:2,title:"Tasks + Test Tips",sub:"Coach: Mr. Brooks"},
+ {n:3,title:"Writing Basics",sub:"Coach: Ms. Patel"}];
+const C=2*Math.PI*42;
+const T={};let soundOn=true;let ctx=null;
+
+const board=document.getElementById('board');
+STATIONS.forEach(s=>{
+  const el=document.createElement('div');
+  el.className='st';el.dataset.s=s.n;el.tabIndex=0;el.setAttribute('role','button');
+  el.setAttribute('aria-label','Open station '+s.n);
+  el.innerHTML=`<div class="ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="42"/><circle class="bar" cx="50" cy="50" r="42" stroke-dasharray="${C}" stroke-dashoffset="0"/></svg><div class="t">30:00</div></div>
+  <div><div class="num">STATION ${s.n}</div><h2>${s.title}</h2><p>${s.sub}</p>
+  <div class="ctrls"><button class="btn solid" data-a="go">Start</button><button class="btn" data-a="reset">Reset</button></div></div>`;
+  board.appendChild(el);
+  T[s.n]={el,left:DUR,end:null,running:false,rang:false};
+  el.addEventListener('click',e=>{
+    const a=e.target.closest('button')?.dataset.a;
+    if(a==='go'){toggle(s.n);return}
+    if(a==='reset'){reset(s.n);return}
+    show(s.n);
+  });
+  el.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===el){e.preventDefault();show(s.n)}});
+});
+
+function fmt(ms){const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function paint(n){
+  const t=T[n];const left=t.running?t.end-Date.now():t.left;
+  const txt=fmt(left);
+  t.el.querySelector('.t').textContent=txt;
+  t.el.querySelector('.bar').style.strokeDashoffset=C*(1-Math.max(0,left)/DUR);
+  document.querySelectorAll(`[data-mini="${n}"]`).forEach(m=>m.textContent=txt);
+  const b=t.el.querySelector('[data-a="go"]');
+  b.textContent=left<=0?'Done':t.running?'Pause':(t.left<DUR?'Resume':'Start');
+  b.disabled=left<=0;
+  t.el.classList.toggle('done',left<=0);
+}
+function toggle(n){const t=T[n];unlock();
+  if(t.running){t.left=t.end-Date.now();t.running=false}
+  else if(t.left>0){t.end=Date.now()+t.left;t.running=true}
+  paint(n);wake()}
+function reset(n){const t=T[n];t.running=false;t.left=DUR;t.rang=false;paint(n)}
+function tick(){for(const n in T){const t=T[n];
+  if(t.running&&t.end-Date.now()<=0){t.running=false;t.left=0;if(!t.rang){t.rang=true;chime()}}
+  paint(n)}}
+setInterval(tick,250);
+
+function unlock(){try{if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume()}catch(e){}}
+function chime(){if(!soundOn||!ctx)return;try{[0,0.35,0.7].forEach((d,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=[660,880,1046][i];g.gain.setValueAtTime(0.0001,ctx.currentTime+d);g.gain.exponentialRampToValueAtTime(0.3,ctx.currentTime+d+0.02);g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+d+0.6);o.connect(g).connect(ctx.destination);o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+0.65)})}catch(e){}}
+let lock=null;async function wake(){try{if(!lock&&navigator.wakeLock)lock=await navigator.wakeLock.request('screen')}catch(e){}}
+
+document.getElementById('allStart').onclick=()=>{for(const n in T){if(!T[n].running&&T[n].left>0)toggle(n)}};
+document.getElementById('allPause').onclick=()=>{for(const n in T){if(T[n].running)toggle(n)}};
+document.getElementById('allReset').onclick=()=>{for(const n in T)reset(n)};
+const sb=document.getElementById('sound');
+sb.onclick=()=>{soundOn=!soundOn;sb.textContent='Sound: '+(soundOn?'on':'off');sb.setAttribute('aria-pressed',soundOn)};
+
+function show(n){
+  [1,2,3].forEach(i=>{document.getElementById('p'+i).hidden=i!==n;T[i].el.setAttribute('aria-current',i===n)});
+  if(location.hash!=='#station-'+n)history.replaceState(null,'','#station-'+n);
+}
+function fromHash(){const m=location.hash.match(/station-(\d)/);show(m?+m[1]:1)}
+window.addEventListener('hashchange',fromHash);fromHash();
+for(const n in T)paint(n);
+
+/* ---------- autograde registry (one chance per question) ---------- */
+const GR={1:{t:0,c:0,a:0},2:{t:0,c:0,a:0},3:{t:0,c:0,a:0}};
+const stOf=el=>+(el.closest('.panel')?.dataset.s||0);
+function gReg(el){const s=stOf(el);if(GR[s])GR[s].t++;return s}
+function gHit(s,ok){if(!GR[s])return;GR[s].a++;if(ok)GR[s].c++;gPaint(s)}
+function gPaint(s){const g=GR[s],el=document.getElementById('grade'+s);if(!el)return;
+  const pct=g.t?Math.round(100*g.c/g.t):0;
+  el.querySelector('.gnum').textContent=`${g.c} / ${g.t}`;
+  el.querySelector('.gpct').textContent=pct+'%';
+  el.querySelector('.gbar i').style.width=(100*g.a/(g.t||1))+'%';
+  el.querySelector('.gmsg').textContent=g.a<g.t?`${g.t-g.a} question${g.t-g.a===1?'':'s'} left. Each question gives you one chance.`:(pct>=80?'All done! Excellent work.':pct>=60?'All done! Good work. Ask your teacher which ones to review.':'All done. Review the lesson and talk with your teacher.');
+  el.classList.toggle('fin',g.a>=g.t)}
+
+/* ---------- quiz helper ---------- */
+function quiz(host,items,scoreEl){
+  const state={};
+  items.forEach((it,qi)=>{
+    const q=document.createElement('div');q.className='q';
+    q.innerHTML=`<div class="stem">${qi+1}. ${it.q}</div><div class="opts"></div><div class="fb"></div>`+(it.hints?`<div class="rowbar" style="margin:8px 0 0"><button class="btn hintbtn" type="button">Coach me (${it.hints.length} hint${it.hints.length>1?'s':''})</button></div><ol class="hints"></ol>`:'');
+    const opts=q.querySelector('.opts'),fb=q.querySelector('.fb');const gs=gReg(host);
+    if(it.hints){let h=0;const hb=q.querySelector('.hintbtn'),hl=q.querySelector('.hints');
+      hb.onclick=()=>{if(h>=it.hints.length)return;const li=document.createElement('li');li.innerHTML='<b>Coach:</b> '+it.hints[h];hl.appendChild(li);h++;
+        hb.textContent=h>=it.hints.length?'No more hints':`Next hint (${it.hints.length-h} left)`;if(h>=it.hints.length)hb.disabled=true}}
+    it.o.forEach((txt,oi)=>{
+      const b=document.createElement('button');b.className='opt';b.type='button';b.setAttribute('aria-pressed','false');
+      b.innerHTML=`<span class="L">${'ABCD'[oi]}</span><span>${txt}</span>`;
+      b.onclick=()=>{
+        if(q.dataset.done)return;q.dataset.done='1';
+        b.setAttribute('aria-pressed','true');
+        const ok=oi===it.a;b.classList.add(ok?'right':'wrong');
+        const all=opts.querySelectorAll('.opt');if(!ok)all[it.a].classList.add('right','reveal');
+        all.forEach(x=>x.disabled=true);q.classList.add(ok?'got':'miss');
+        const hb=q.querySelector('.hintbtn');if(hb)hb.disabled=true;
+        fb.className='fb '+(ok?'ok':'no');fb.innerHTML=ok?'<b>✓ Correct.</b> '+(it.why||''):`<b>✗ Not correct.</b> The answer is <b>${'ABCD'[it.a]}</b>. `+(it.why||'');
+        state[qi]=ok;gHit(gs,ok);
+        if(scoreEl){const c=Object.values(state).filter(Boolean).length;scoreEl.textContent=`· ${c}/${items.length}`}
+      };
+      opts.appendChild(b);
+    });
+    host.appendChild(q);
+  });
+}
+
+/* ---------- shared helpers ---------- */
+function wc(s){return (s.trim().match(/\S+/g)||[]).length}
+function store(id){const el=document.getElementById(id);if(!el)return;try{const v=localStorage.getItem('ep_'+id);if(v)el.value=v}catch(e){}
+  el.addEventListener('input',()=>{try{localStorage.setItem('ep_'+id,el.value)}catch(e){}})}
+function say(text,rate){if(!('speechSynthesis' in window))return false;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=rate||.9;speechSynthesis.speak(u);return true}
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/\s+/g,' ').trim();
+/* (scoreboards painted after setup) */
+const sentN=s=>(s.match(/[.!?](\s|$)/g)||[]).length;
+
+/* sorter: tap a bin button for each item */
+function sorter(host,bins,items,scoreEl){
+  const done={};
+  items.forEach((it,i)=>{
+    const row=document.createElement('div');row.className='srow';
+    row.innerHTML=`<div class="stxt">${it.t}</div><div class="sbtns">${bins.map((b,k)=>`<button type="button" class="btn sb" data-k="${k}">${b}</button>`).join('')}</div><div class="fb"></div>`;
+    const fb=row.querySelector('.fb');const gs=gReg(host);
+    row.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{
+      if(row.dataset.done)return;row.dataset.done='1';
+      const ok=+b.dataset.k===it.bin;
+      b.classList.add(ok?'right':'wrong');row.classList.add(ok?'solved':'missed');
+      row.querySelectorAll('.sb').forEach(x=>x.disabled=true);
+      fb.className='fb '+(ok?'ok':'no');fb.innerHTML=(ok?'<b>✓ Correct.</b> ':`<b>✗ Not correct.</b> It is <b>${bins[it.bin]}</b>. `)+(it.why||'');
+      gHit(gs,ok);
+      done[i]=ok;if(scoreEl)scoreEl.textContent=`· ${Object.values(done).filter(Boolean).length}/${items.length}`;
+    });
+    host.appendChild(row);
+  });
+}
+
+/* speaking timer: think, then talk */
+function speakTimers(){document.querySelectorAll('.spk').forEach(box=>{
+  const think=+box.dataset.think,talk=+box.dataset.talk;
+  box.innerHTML=`<div class="spk-row"><div class="spk-clock"><span class="spk-ph">Ready</span><span class="spk-t">0:${String(think).padStart(2,'0')}</span></div>
+  <div class="rowbar" style="margin:0"><button type="button" class="btn solid sgo">▶ Start think time</button><button type="button" class="btn sre">Reset</button></div></div>
+  <div class="frames"><div class="frame"><b>Restate:</b> The question asks… / I think…</div><div class="frame"><b>Reason:</b> One reason is… because…</div><div class="frame"><b>Example:</b> For example, …</div><div class="frame"><b>Close:</b> That is why…</div></div>
+  <div class="checks spk-checks"><label><input type="checkbox">I restated the question.</label><label><input type="checkbox">I gave a reason.</label><label><input type="checkbox">I gave an example.</label><label><input type="checkbox">I kept talking until the timer ended.</label></div>`;
+  const ph=box.querySelector('.spk-ph'),tt=box.querySelector('.spk-t'),go=box.querySelector('.sgo');let id=null,phase=0,left=think;
+  const f=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  function reset(){clearInterval(id);id=null;phase=0;left=think;ph.textContent='Ready';tt.textContent=f(left);go.textContent='▶ Start think time';go.disabled=false;box.classList.remove('talk','fin')}
+  go.onclick=()=>{if(id)return;phase=phase||1;ph.textContent=phase===1?'Think':'Speak now!';go.disabled=true;
+    id=setInterval(()=>{left--;tt.textContent=f(Math.max(0,left));
+      if(left<=0){clearInterval(id);id=null;
+        if(phase===1){phase=2;left=talk;ph.textContent='Speak now!';tt.textContent=f(left);box.classList.add('talk');go.textContent='▶ Start speaking';go.disabled=false}
+        else{ph.textContent='Done. Check your list.';box.classList.remove('talk');box.classList.add('fin');go.textContent='Done';}}},1000)};
+  box.querySelector('.sre').onclick=reset;reset();
+})}
+speakTimers();
+
+/* ================= STATION 1: VOCABULARY ================= */
+const WALL=[
+ ["identify","find and name","identificar","Identify the main idea."],
+ ["describe","tell what something is like","describir","Describe the picture."],
+ ["explain","tell how or why","explicar","Explain why the boy was late."],
+ ["summarize","tell the most important ideas in a short way","resumir","Summarize the article in two sentences."],
+ ["compare","tell how things are alike or different","comparar","Compare the two schools."],
+ ["infer","use clues to figure out what is not said","inferir","What can you infer about the girl?"],
+ ["support","give a reason or evidence for an idea","apoyar / sustentar","Support your answer with a detail."],
+ ["evidence","words from the text that prove an idea","evidencia","Which sentence is evidence for this idea?"],
+ ["main idea","what the whole text is mostly about","idea principal","What is the main idea of paragraph 2?"],
+ ["detail","a small piece of information","detalle","Which detail shows the boy is tired?"],
+ ["sequence","the order things happen","secuencia","Put the events in sequence."],
+ ["opinion","what someone thinks or believes","opinión","Give your opinion and two reasons."]];
+const wall=document.getElementById('wall');
+WALL.forEach(([w,m,es,ex])=>{const c=document.createElement('div');c.className='wcard';
+  c.innerHTML=`<div class="wtop"><b>${w}</b><button type="button" class="btn spk-btn" aria-label="Hear ${w}">🔊</button></div><div class="wm">${m}</div><div class="es">${es}</div><div class="wex">“${ex}”</div>`;
+  c.querySelector('button').onclick=()=>say(w+'. '+ex,.85);wall.appendChild(c)});
+
+/* match */
+(function(){const host=document.getElementById('match'),sc=document.getElementById('matchScore');
+  const pairs=WALL.slice(0,8).map(([w,m])=>({w,m}));
+  const L=document.createElement('div'),R=document.createElement('div');L.className='mcol';R.className='mcol';
+  const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+  let sel=null,got=0;
+  shuf(pairs).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='mitem mw';b.textContent=p.w;b.dataset.k=p.w;
+    b.onclick=()=>{if(b.classList.contains('ok'))return;L.querySelectorAll('.mw').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b};L.appendChild(b)});
+  shuf(pairs).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='mitem mm';b.textContent=p.m;b.dataset.k=p.w;
+    b.onclick=()=>{if(!sel||b.classList.contains('ok'))return;
+      if(sel.dataset.k===b.dataset.k){sel.classList.add('ok');b.classList.add('ok');sel.classList.remove('sel');sel=null;got++;sc.textContent=`· ${got}/8`;if(got===8)sc.textContent='· 8/8 ✓'}
+      else{b.classList.add('bad');setTimeout(()=>b.classList.remove('bad'),600)}};R.appendChild(b)});
+  host.append(L,R)})();
+
+quiz(document.getElementById('qDec'),[
+ {q:"“<b>Summarize</b> the article.” What should you do?",o:["Copy the first paragraph","Tell the most important ideas in a few sentences","List every detail","Give your opinion of the article"],a:1,hints:["Summarize means short.","It covers the WHOLE text, not one part.","Most important ideas, in your own words, short."]},
+ {q:"“Which sentence from the text <b>supports</b> the idea that the team worked hard?”",o:["Choose a sentence you like","Choose the first sentence","Choose the sentence that proves the idea","Write your own sentence"],a:2,hints:["“Support” on a test means prove.","Find the sentence that shows hard work."]},
+ {q:"“<b>Compare</b> the two jobs.” What should you write?",o:["How the jobs are alike and different","Only what job 1 is like","Which job pays more, with no details","A story about a job"],a:0,hints:["Compare = two things.","Think: alike AND different."]},
+ {q:"“What can you <b>infer</b> about how Leo feels?”",o:["Find the sentence that says “Leo feels…”","Copy Leo’s words","Guess with no clues","Use clues and what you know to figure it out"],a:3,hints:["The text probably does NOT say it directly.","Clue + what I know = …"]},
+ {q:"“Put the events in <b>sequence</b>.” What does the question want?",o:["The most important event","The order the events happened","The main character","Your favorite event"],a:1,hints:["Sequence = order.","Look for first, next, then, finally."]},
+ {q:"“<b>Explain</b> why the city built a new park.” A strong answer will…",o:["name the park","describe the color of the park","give the reasons the city built it","say yes or no"],a:2,hints:["Explain asks how or why.","The question says WHY. Give reasons."]}
+],document.getElementById('decScore'));
+
+quiz(document.getElementById('qCtx'),[
+ {q:"The road was <mark>hazardous</mark> after the storm. Broken trees and deep water made it unsafe to drive.",o:["beautiful","quiet","dangerous","new"],a:2,hints:["Look at the next sentence for a clue.","“Unsafe” is a definition clue."]},
+ {q:"Some animals are <mark>nocturnal</mark>, unlike people, who are awake during the day.",o:["active at night","very large","always hungry","friendly"],a:0,hints:["“Unlike” is a contrast clue: the opposite.","People are awake in the day… so nocturnal animals are awake at…"]},
+ {q:"Ana is very <mark>frugal</mark>. She saves her money and buys only what she really needs.",o:["angry","careful with money","tired","funny"],a:1,hints:["Read the second sentence. What does Ana do with money?"]},
+ {q:"The coach gave <mark>explicit</mark> directions: “Run two laps, stretch for five minutes, then come to the bench.”",o:["confusing","short","quiet","clear and exact"],a:3,hints:["Look at the example after the colon.","Are those directions easy or hard to understand?"]},
+ {q:"The new rule was <mark>temporary</mark>. It lasted only one week, and then things went back to normal.",o:["for a short time","very strict","for students only","forever"],a:0,hints:["How long did the rule last?","“Only one week” is the clue."]}
+],document.getElementById('ctxScore'));
+
+quiz(document.getElementById('qWp'),[
+ {q:"<b>re</b>write",o:["write badly","write again","write before","not write"],a:1,hints:["re- = again"]},
+ {q:"care<b>less</b>",o:["full of care","care again","can be cared for","without care"],a:3,hints:["-less = without"]},
+ {q:"<b>un</b>fair",o:["not fair","very fair","fair again","fair before"],a:0,hints:["un- = not"]},
+ {q:"<b>pre</b>view",o:["view again","view wrongly","view before","not view"],a:2,hints:["pre- = before"]},
+ {q:"<b>mis</b>understand",o:["understand again","understand wrongly","understand before","understand fully"],a:1,hints:["mis- = wrongly"]},
+ {q:"predict<b>able</b>",o:["can be predicted","not predicted","predicted again","without a prediction"],a:0,hints:["-able = can be"]}
+],document.getElementById('wpScore'));
+
+sorter(document.getElementById('cog'),['✓ Friend','✗ False friend'],[
+ {t:"<b>evidence</b> = evidencia",bin:0,why:"Same meaning: proof."},
+ {t:"<b>actually</b> = actualmente?",bin:1,why:"Actually = in fact (en realidad). Actualmente = currently."},
+ {t:"<b>describe</b> = describir",bin:0,why:"Same meaning."},
+ {t:"<b>assist</b> = asistir?",bin:1,why:"Assist = help (ayudar). Asistir = attend."},
+ {t:"<b>compare</b> = comparar",bin:0,why:"Same meaning."},
+ {t:"<b>embarrassed</b> = embarazada?",bin:1,why:"Embarrassed = ashamed (avergonzado). Embarazada = pregnant."},
+ {t:"<b>important</b> = importante",bin:0,why:"Same meaning."},
+ {t:"<b>library</b> = librería?",bin:1,why:"Library = biblioteca. Librería = bookstore."},
+ {t:"<b>information</b> = información",bin:0,why:"Same meaning."},
+ {t:"<b>conclusion</b> = conclusión",bin:0,why:"Same meaning."}
+],document.getElementById('cogScore'));
+
+['vExit','vCh'].forEach(store);
+(function(){const t=document.getElementById('vExit'),o=document.getElementById('vExitWc');
+  const u=()=>{const low=t.value.toLowerCase();const n=WALL.filter(([w])=>new RegExp('\\b'+w).test(low)).length;o.innerHTML=`Direction words used: <b>${n}</b> / 2${n>=2?' ✓':''}`};t.addEventListener('input',u);u()})();
+
+/* ================= STATION 2: TASKS + TIPS ================= */
+quiz(document.getElementById('tR'),[
+ {q:"What is the main purpose of this notice?",o:["To tell students food is now allowed","To tell students the library will open earlier","To ask students to buy computers","To close the library"],a:1,hints:["Read the first sentence again.","What is changing?"]},
+ {q:"Which student follows the library rules?",o:["Sam eats breakfast at the computer at 7:20.","Lia arrives at 7:00 to use a computer.","Omar finishes homework on a computer at 7:30.","Ken brings a soda inside at 7:40."],a:2,hints:["The library opens at 7:15.","No food or drinks inside."]}
+]);
+const LIS="Hi, this is Coach Ramirez. Soccer practice is moved inside to the gym today because the field is too wet. Please bring your running shoes, not your cleats. Practice will end at five instead of five thirty, so tell your ride to come early.";
+document.querySelector('#tLtext p').textContent=LIS;
+document.getElementById('tLplay').onclick=()=>{if(!say(LIS,.9))document.getElementById('tLmsg').textContent='Audio is not available. Tap Show script.'};
+document.getElementById('tLscript').onclick=e=>{const p=document.getElementById('tLtext');p.hidden=!p.hidden;e.target.textContent=p.hidden?'Show script':'Hide script'};
+quiz(document.getElementById('tL'),[
+ {q:"Why is practice in the gym today?",o:["The coach is sick","It is too cold","The field is too wet","The gym is new"],a:2,hints:["Listen for “because.”"]},
+ {q:"What should players tell their ride?",o:["To come earlier than usual","To come at 5:30","To bring cleats","To come to the field"],a:0,hints:["Practice ends at five instead of five thirty."]}
+]);
+store('tW');
+document.getElementById('tWchk').onclick=()=>{const v=document.getElementById('tW').value.trim(),low=v.toLowerCase(),tips=[],fb=document.getElementById('tWfb');
+  if(sentN(v)<2)tips.push("Write two complete sentences, each ending with a period.");
+  if(v&&v[0]!==v[0].toUpperCase())tips.push("Start with a capital letter.");
+  if(!/(student|girl|boy|friend|people|they|two)/.test(low))tips.push("Tell WHO is in the picture.");
+  if(!/(library|table|book|laptop|computer|clock|study|studying|read|reading|homework)/.test(low))tips.push("Tell WHAT they are doing or WHERE they are.");
+  if(wc(v)<14)tips.push("Add more detail, like the time on the clock or why they are there.");
+  fb.className='fb '+(tips.length?'no':'ok');fb.innerHTML='<b>Coach:</b> '+(tips.length?tips.join(' '):'Strong! Who, what, where, and complete sentences. That is what scorers look for.')};
+
+sorter(document.getElementById('tips'),['👍 Smart move','⚠️ Risky move'],[
+ {t:"Test your headphones and microphone before you start.",bin:0,why:"If you can’t hear or be heard, you lose points you earned."},
+ {t:"Answer the speaking question with one word.",bin:1,why:"Short answers show very little English. Speak in full sentences."},
+ {t:"Read the question before you read the passage.",bin:0,why:"You know what to look for, so you read with a purpose."},
+ {t:"Rush because you think the test is timed.",bin:1,why:"ELPA21 is not a timed test. Take your time and check your work."},
+ {t:"In speaking, start by repeating the question in your answer.",bin:0,why:"It organizes your answer and adds complete sentences."},
+ {t:"Stop reading when you see a word you don’t know.",bin:1,why:"Keep going. Use context clues and the rest of the sentence."},
+ {t:"Skip a hard question and come back to it.",bin:0,why:"Don’t get stuck. Answer what you know first, then return."},
+ {t:"Leave a writing box empty if you are not sure.",bin:1,why:"An empty box earns 0. Even a few sentences can earn points."},
+ {t:"Check capital letters and periods before moving on.",bin:0,why:"Simple fixes make your writing clearer and score higher."},
+ {t:"Keep talking until you have given a reason and an example.",bin:0,why:"More organized language = a higher speaking score."}
+],document.getElementById('tipScore'));
+
+/* cross-out drill */
+(function(){const host=document.getElementById('xo'),sc=document.getElementById('xoScore');const solved={};
+  const Q=[
+   {q:"What is the main idea of the passage?",o:["Alarm clocks are expensive.","Keeping phones out of the bedroom can help teens sleep better.","Doctors use phones at night.","High school students do not like to sleep."],a:1,why:{0:"The passage never talks about prices.",2:"Doctors give advice. They don’t use phones in the passage.",3:"The passage says teens want sleep, not that they dislike it."}},
+   {q:"According to the passage, why does screen light make sleep harder?",o:["It makes the room too hot.","It uses too much battery.","It is too loud.","It tells the brain to stay awake."],a:3,why:{0:"Heat is not mentioned.",1:"Battery is not mentioned.",2:"Light is not a sound."}},
+   {q:"Why do some students use an old-style alarm clock?",o:["So the phone can stay out of the bedroom","Because phones cannot make alarms","Because the study required it","Because old clocks are louder"],a:0,why:{1:"Phones can make alarms, so this is not the reason.",2:"The study did not require clocks.",3:"Loudness is not mentioned."}}];
+  Q.forEach((it,qi)=>{const box=document.createElement('div');box.className='q';const gs=gReg(host);
+    box.innerHTML=`<div class="stem">${qi+1}. ${it.q}</div><div class="opts"></div><div class="fb">Cross out two wrong answers first.</div>`;
+    const opts=box.querySelector('.opts'),fb=box.querySelector('.fb');let crossed=0;
+    it.o.forEach((t,oi)=>{const row=document.createElement('div');row.className='xorow';
+      row.innerHTML=`<button type="button" class="xbtn" aria-label="Cross out ${'ABCD'[oi]}">✕</button><button type="button" class="opt" disabled><span class="L">${'ABCD'[oi]}</span><span>${t}</span></button>`;
+      const x=row.querySelector('.xbtn'),pick=row.querySelector('.opt');
+      x.onclick=()=>{if(row.classList.contains('out')||box.dataset.done)return;
+        if(oi===it.a){fb.className='fb no';fb.innerHTML='<b>Careful!</b> That one might be correct. Reread the passage.';return}
+        row.classList.add('out');crossed++;fb.className='fb ok';fb.innerHTML='<b>Good cross-out.</b> '+it.why[oi];
+        if(crossed>=2){opts.querySelectorAll('.xorow:not(.out) .opt').forEach(b=>b.disabled=false);fb.innerHTML+=' Now choose the best answer.'}};
+      pick.onclick=()=>{if(box.dataset.done)return;box.dataset.done='1';const ok=oi===it.a;pick.classList.add(ok?'right':'wrong');
+        const all=opts.querySelectorAll('.opt');if(!ok)all[it.a].classList.add('right','reveal');all.forEach(b=>b.disabled=true);
+        opts.querySelectorAll('.xbtn').forEach(b=>b.disabled=true);
+        fb.className='fb '+(ok?'ok':'no');
+        fb.innerHTML=ok?'<b>✓ Correct.</b> Crossing out made it easier.':`<b>✗ Not correct.</b> The answer is <b>${'ABCD'[it.a]}</b>.`;
+        solved[qi]=ok;gHit(gs,ok);sc.textContent=`· ${Object.values(solved).filter(Boolean).length}/${Q.length}`};
+      opts.appendChild(row)});
+    host.appendChild(box)})})();
+
+['tExit','tCh'].forEach(store);
+(function(){const t=document.getElementById('tCh'),o=document.getElementById('tChWc');const u=()=>o.innerHTML=`<b>${wc(t.value)}</b> words · aim for 60–80`;t.addEventListener('input',u);u()})();
+
+/* ================= STATION 3: WRITING BASICS ================= */
+sorter(document.getElementById('frag'),['Sentence','Fragment'],[
+ {t:"1. The students finished the test early.",bin:0,why:"Subject (students) + verb (finished) + complete thought."},
+ {t:"2. My best friend from Honduras.",bin:1,why:"There is no verb. What about the friend?"},
+ {t:"3. We practiced speaking every day.",bin:0,why:"Subject (We) + verb (practiced)."},
+ {t:"4. Because the bus was late.",bin:1,why:"Not a complete thought. Because the bus was late… what happened?"},
+ {t:"5. Is very important to study.",bin:1,why:"No subject. Say “It is very important to study.”"},
+ {t:"6. She reads in English and Spanish.",bin:0,why:"Subject (She) + verb (reads)."},
+ {t:"7. After lunch, the class went outside.",bin:0,why:"Subject (class) + verb (went) + complete thought."},
+ {t:"8. When I get home from school.",bin:1,why:"Not complete. When I get home… what do you do?"}
+],document.getElementById('frScore'));
+
+const FIX=[
+ {bad:"my brother play soccer every saturday",good:["My brother plays soccer every Saturday."],tip:"Capital M, capital S in Saturday, and he plays (add -s)."},
+ {bad:"Is important to read every day.",good:["It is important to read every day."],tip:"Add the subject: It is…"},
+ {bad:"where is the library.",good:["Where is the library?"],tip:"Capital W, and a question needs a question mark."},
+ {bad:"She don't like math, but she like science.",good:["She doesn't like math, but she likes science.","She does not like math, but she likes science."],tip:"She doesn’t… she likes."},
+ {bad:"Yesterday i go to the store.",good:["Yesterday I went to the store.","I went to the store yesterday."],tip:"Capital I, and yesterday needs the past tense: went."}];
+const fh=document.getElementById('fix');const fixOk={};
+FIX.forEach((f,i)=>{const b=document.createElement('div');b.className='q';
+  b.innerHTML=`<div class="stem">${i+1}. <span class="badtxt">${f.bad}</span></div><input type="text" id="fix${i}" aria-label="Corrected sentence ${i+1}" autocomplete="off" spellcheck="false"><div class="rowbar" style="margin:6px 0 0"><button type="button" class="btn solid">Check</button><button type="button" class="btn">Hint</button></div><div class="fb"></div>`;
+  fh.appendChild(b);store('fix'+i);
+  const inp=b.querySelector('input'),fb=b.querySelector('.fb'),[c,h]=b.querySelectorAll('.btn');
+  c.onclick=()=>{const v=inp.value.trim().replace(/[’]/g,"'").replace(/\s+/g,' ');const ok=f.good.includes(v);
+    fixOk[i]=ok;fb.className='fb '+(ok?'ok':'no');fb.innerHTML=ok?'<b>Fixed!</b>':'<b>Not yet.</b> Check capitals, the end mark and the verb.';
+    document.getElementById('fixScore').textContent=`· ${Object.values(fixOk).filter(Boolean).length}/${FIX.length}`};
+  h.onclick=()=>{fb.className='fb';fb.innerHTML='<b>Coach:</b> '+f.tip}});
+
+['stW1','stW2','stW3','stOut'].forEach(store);
+(function(){const o=document.getElementById('stOut'),w=document.getElementById('stWc');const u=()=>w.innerHTML=`<b>${wc(o.value)}</b> words · goal 12+`;o.addEventListener('input',u);u();
+  document.getElementById('stChk').onclick=()=>{const v=o.value.trim(),low=v.toLowerCase(),tips=[],fb=document.getElementById('stFb');
+    if(!/\bboy\b/.test(low)||!/\bran\b/.test(low))tips.push("Keep “the boy” and “ran” in your sentence.");
+    if(wc(v)<12)tips.push("Add more words. Answer when, where and why.");
+    if(!/\b(because|so|to)\b/.test(low))tips.push("Add WHY with because, so, or to.");
+    if(!/\b(after|before|every|on|in the|at|yesterday|this|last|when)\b/.test(low))tips.push("Add WHEN or WHERE.");
+    if(v&&!/^[A-Z]/.test(v))tips.push("Start with a capital letter.");
+    if(v&&!/[.!?]$/.test(v))tips.push("End with a period.");
+    fb.className='fb '+(tips.length?'no':'ok');fb.innerHTML='<b>Coach:</b> '+(tips.length?tips.join(' '):'Great stretch! Your sentence now tells when, where and why.')}})();
+
+/* order the paragraph */
+(function(){const S={A:"For example, every night I listen to one English podcast while I do chores.",B:"Listening to podcasts is the best way for me to practice English.",C:"That is why podcasts are an important part of my day.",D:"First, I hear how real people speak, so my listening gets faster.",E:"Also, I learn new words that I can use in class."};
+  const ORDER=['B','D','E','A','C'];
+  const line=document.querySelector('.ordline'),bank=document.querySelector('.ordbank'),fb=document.getElementById('ordFb');
+  Object.keys(S).forEach(k=>{const t=document.createElement('button');t.type='button';t.className='tile stile';t.dataset.k=k;t.innerHTML=`<b>${k}</b> ${S[k]}`;
+    t.onclick=()=>{(t.parentElement===bank?line:bank).appendChild(t);fb.textContent=''};bank.appendChild(t)});
+  document.getElementById('ordChk').onclick=()=>{const got=[...line.children].map(x=>x.dataset.k);
+    if(got.length<5){fb.className='fb no';fb.textContent='Use all five sentences.';return}
+    const firstWrong=got.findIndex((k,i)=>k!==ORDER[i]);
+    if(firstWrong<0){fb.className='fb ok';fb.innerHTML='<b>Correct!</b> Topic → First → Also → For example → That is why. Notice how the linking words show the order.';return}
+    const roles=['the topic sentence (it tells the whole idea)','the first detail (look for “First”)','the second detail (look for “Also”)','the example (look for “For example”)','the closing (look for “That is why”)'];
+    fb.className='fb no';fb.innerHTML=`<b>Coach:</b> Sentence ${firstWrong+1} should be ${roles[firstWrong]}.`};
+  document.getElementById('ordClr').onclick=()=>{[...line.children].forEach(t=>bank.appendChild(t));fb.textContent=''}})();
+
+/* paragraph */
+['pT','pD1','pD2','pEx','pC','pDraft','wCh'].forEach(store);
+(function(){const d=document.getElementById('pDraft'),st=document.getElementById('pStats');
+  const LINK=['first','also','for example','that is why','because','in addition','another','finally','so','for instance','as a result'];
+  const linkN=t=>LINK.filter(w=>new RegExp('\\b'+w+'\\b').test(t.toLowerCase())).length;
+  const u=()=>st.innerHTML=`<b>${sentN(d.value)}</b> sentences · <b>${wc(d.value)}</b> words · linking words <b>${linkN(d.value)}</b>`;d.addEventListener('input',u);u();
+  document.getElementById('pJoin').onclick=()=>{const parts=['pT','pD1','pD2','pEx','pC'].map(id=>document.getElementById(id).value.trim()).filter(Boolean)
+      .map(s=>{s=s.charAt(0).toUpperCase()+s.slice(1);return /[.!?]$/.test(s)?s:s+'.'});
+    if(!parts.length){document.getElementById('pMsg').textContent='Fill in your plan first.';return}
+    d.value=parts.join(' ');d.dispatchEvent(new Event('input'));document.getElementById('pMsg').textContent='Now read it and add one or two more sentences.'};
+  document.getElementById('pChk').onclick=()=>{const v=d.value.trim(),tips=[],fb=document.getElementById('pFb');
+    const sents=v.split(/(?<=[.!?])\s+/).filter(Boolean);
+    if(sents.length<5)tips.push(`You have ${sents.length} sentence${sents.length===1?'':'s'}. Write at least 5.`);
+    if(linkN(v)<3)tips.push("Use at least 3 linking words (first, also, for example, that is why).");
+    const lower=sents.filter(s=>/^[a-z]/.test(s));if(lower.length)tips.push(`Start every sentence with a capital: “${lower[0].slice(0,25)}…”`);
+    if(v&&!/[.!?]$/.test(v))tips.push("End your last sentence with a period.");
+    if(/\bi\b/.test(v))tips.push("Write the word I as a capital letter.");
+    if(/(^|[.!?]\s+)is\b/i.test(v))tips.push("A sentence starts with “Is.” Did you forget the subject “It”?");
+    if(!/(help|helps|learn)/i.test(v))tips.push("Make sure your paragraph answers the prompt: what helps you learn English.");
+    if(sents.length&&!/(that is why|in conclusion|this is why|so that is|for these reasons)/i.test(sents[sents.length-1]))tips.push("Add a closing sentence (That is why…).");
+    fb.className='fb '+(tips.length?'no':'ok');fb.innerHTML='<b>Coach:</b> '+(tips.length?'Fix this first: '+tips[0]+(tips.length>1?` <span class="note">(${tips.length-1} more after that)</span>`:''):'Excellent paragraph! It has a topic, details, an example, linking words and a closing. Try the Challenge to reach Level 4–5.')};
+  document.getElementById('pCopy').onclick=()=>{const m=document.getElementById('pMsg');
+    navigator.clipboard.writeText(d.value).then(()=>m.textContent='Copied. Paste it into Google Classroom.').catch(()=>{d.select();m.textContent='Text selected. Press Ctrl+C to copy.'})};
+  const ch=document.getElementById('wCh'),cw=document.getElementById('wChWc');const cu=()=>cw.innerHTML=`<b>${wc(ch.value)}</b> words`;ch.addEventListener('input',cu);cu()})();
+
+/* ================= GAMES ================= */
+function best(key,val){let b=0;try{b=+localStorage.getItem('ep_best_'+key)||0;if(val!=null&&val>b){localStorage.setItem('ep_best_'+key,val);b=val}}catch(e){if(val!=null)b=Math.max(b,val)}return b}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let gctx=null;function blip(ok){try{if(!gctx)gctx=new (window.AudioContext||window.webkitAudioContext)();const o=gctx.createOscillator(),g=gctx.createGain();
+  o.type=ok?'triangle':'sawtooth';o.frequency.value=ok?880:180;g.gain.setValueAtTime(.12,gctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,gctx.currentTime+.18);
+  o.connect(g).connect(gctx.destination);o.start();o.stop(gctx.currentTime+.2)}catch(e){}}
+
+/* timed game shell: 60 seconds, score + streak */
+function timedGame(root,key,next,secs){
+  const hud=root.querySelector('.ghud'),area=root.querySelector('.garea'),start=root.querySelector('.gstart'),endEl=root.querySelector('.gend');
+  const tEl=hud.querySelector('[data-h="t"]'),sEl=hud.querySelector('[data-h="s"]'),kEl=hud.querySelector('[data-h="k"]'),bEl=hud.querySelector('[data-h="b"]');
+  let score=0,streak=0,right=0,tries=0,end=0,id=null,locked=false;bEl.textContent=best(key);
+  function hit(ok,pause){if(locked)return;locked=true;tries++;blip(ok);
+    if(ok){right++;streak++;score+=10+(streak>1?(streak-1)*2:0)}else streak=0;
+    sEl.textContent=score;kEl.textContent=streak>1?'🔥'+streak:streak;root.classList.add(ok?'flash-ok':'flash-no');
+    setTimeout(()=>{root.classList.remove('flash-ok','flash-no');locked=false;if(id)next(area,hit)},pause||450)}
+  function finish(){clearInterval(id);id=null;area.innerHTML='';const b=best(key,score);
+    endEl.hidden=false;endEl.innerHTML=`<div class="gbig">${score} points</div><p>${right} correct out of ${tries} · Best: <b>${b}</b>${score>=b&&score>0?' · <b>New record!</b>':''}</p><p class="note">Play again to beat your best score.</p>`;
+    bEl.textContent=b;start.hidden=false;start.textContent='▶ Play again'}
+  start.onclick=()=>{score=right=tries=streak=0;sEl.textContent=0;kEl.textContent=0;endEl.hidden=true;start.hidden=true;locked=false;
+    end=Date.now()+secs*1000;tEl.textContent=secs;
+    id=setInterval(()=>{const l=Math.max(0,Math.ceil((end-Date.now())/1000));tEl.textContent=l;root.classList.toggle('hurry',l<=10);if(l<=0)finish()},200);
+    next(area,hit)};
+}
+
+/* ---- Station 1: Word Rush ---- */
+(function(){const root=document.getElementById('game1');let last=-1;
+  timedGame(root,'wordrush',(area,hit)=>{
+    let i;do{i=Math.floor(Math.random()*WALL.length)}while(i===last);last=i;
+    const opts=shuffle([i,...shuffle(WALL.map((_,k)=>k).filter(k=>k!==i)).slice(0,3)]);
+    area.innerHTML=`<p class="gq">${WALL[i][1]}</p><div class="gopts">${opts.map(k=>`<button type="button" class="gbtn" data-k="${k}">${WALL[k][0]}</button>`).join('')}</div>`;
+    area.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>{const ok=+b.dataset.k===i;b.classList.add(ok?'ok':'no');
+      if(!ok)area.querySelector(`.gbtn[data-k="${i}"]`).classList.add('ok');hit(ok,ok?350:900)})},60)})();
+
+/* ---- Station 3: Error Hunt ---- */
+const HUNT=[
+ ["My","sister","play","soccer","every","day.",2,"plays"],
+ ["Yesterday","we","go","to","the","library.",2,"went"],
+ ["She","doesn't","likes","pizza.",2,"like"],
+ ["The","students","is","ready","for","the","test.",2,"are"],
+ ["on","Monday","we","have","a","quiz.",0,"On"],
+ ["My","friend","and","i","study","together.",3,"I"],
+ ["We","live","in","laurel,","Mississippi.",3,"Laurel,"],
+ ["He","have","two","brothers.",1,"has"],
+ ["They","was","late","to","class.",1,"were"],
+ ["I","am","agree","with","you.",1,"(delete am)"],
+ ["Is","important","to","sleep","early.",0,"It is"],
+ ["The","test","is","on","friday.",4,"Friday."],
+ ["She","can","speaks","three","languages.",2,"speak"],
+ ["We","didn't","went","to","school.",2,"go"],
+ ["My","teacher","give","us","homework.",2,"gives"],
+ ["Where","is","the","gym.",3,"gym?"],
+ ["I","have","16","years.",1,"am (I am 16)"],
+ ["He","don't","have","a","phone.",1,"doesn't"],
+ ["The","childrens","are","playing.",1,"children"],
+ ["Last","year","I","live","in","Texas.",3,"lived"]];
+(function(){const root=document.getElementById('game3');let order=[],p=0;
+  timedGame(root,'errorhunt',(area,hit)=>{
+    if(p>=order.length){order=shuffle(HUNT.map((_,k)=>k));p=0}const h=HUNT[order[p++]];const words=h.slice(0,-2),bad=h[h.length-2],fix=h[h.length-1];
+    area.innerHTML=`<p class="gq small">Tap the word with the mistake.</p><div class="hunt">${words.map((w,k)=>`<button type="button" class="hw" data-k="${k}">${w}</button>`).join('')}</div><p class="gfix" hidden></p>`;
+    area.querySelectorAll('.hw').forEach(b=>b.onclick=()=>{const ok=+b.dataset.k===bad;b.classList.add(ok?'ok':'no');
+      const t=area.querySelector(`.hw[data-k="${bad}"]`);t.classList.add('ok');const fx=area.querySelector('.gfix');fx.hidden=false;fx.innerHTML=`✓ <b>${words[bad]}</b> → <b>${fix}</b>`;
+      hit(ok,ok?800:1300)})},60)})();
+
+/* ---- Station 2: Test-Day Showdown (quiz board) ---- */
+const SHOW={
+ "Reading":[
+  {q:"You should read the ___ before you read the passage.",o:["title only","question","last paragraph"],a:1},
+  {q:"A question asks for the main idea. The best answer will be…",o:["one small detail","about the whole text","the first sentence copied"],a:1},
+  {q:"“According to the text…” means your answer must…",o:["come from the text","be your opinion","be a guess"],a:0}],
+ "Listening":[
+  {q:"🔊 Listen: “The library will be closed Friday because of a teacher meeting.” Why is it closed?",o:["It is a holiday","A teacher meeting","It is being painted"],a:1,audio:"The library will be closed Friday because of a teacher meeting."},
+  {q:"Before you press Play, you should…",o:["read the question","close your eyes","take off headphones"],a:0},
+  {q:"🔊 Listen: “Bring your permission form by Wednesday, or you can’t go on the trip.” What happens without the form?",o:["You go on Thursday","You can’t go on the trip","You pay more"],a:1,audio:"Bring your permission form by Wednesday, or you can't go on the trip."}],
+ "Speaking":[
+  {q:"The best first sentence for “What is your favorite food?” is…",o:["“Pizza.”","“My favorite food is pizza because…”","“I don’t know.”"],a:1},
+  {q:"After your reason, you should add…",o:["an example","silence","a new topic"],a:0},
+  {q:"If you finish early in a speaking task, you should…",o:["stop talking","add another detail or example","say “the end” many times"],a:1}],
+ "Writing":[
+  {q:"Which is a complete sentence?",o:["Because I was tired.","After the game.","We won the game."],a:2},
+  {q:"Which linking word adds an example?",o:["For example","However","Finally"],a:0},
+  {q:"If you are not sure what to write, you should…",o:["leave it blank","write what you can in complete sentences","write one word"],a:1}],
+ "Tips":[
+  {q:"ELPA21 is…",o:["a timed race","not a timed test","only reading"],a:1},
+  {q:"A word you don’t know in a passage. Best move?",o:["Stop the test","Use context clues and keep going","Choose answer A"],a:1},
+  {q:"Before the test starts, check your…",o:["headphones and microphone","phone messages","lunch"],a:0}]};
+(function(){const root=document.getElementById('game2'),grid=root.querySelector('.jgrid'),qbox=root.querySelector('.jq'),sEl=root.querySelector('[data-h="js"]'),lEl=root.querySelector('[data-h="jl"]'),bEl=root.querySelector('[data-h="jb"]');
+  const cats=Object.keys(SHOW);let score=0,left=15;bEl.textContent=best('showdown');
+  function build(){grid.innerHTML='';score=0;left=15;sEl.textContent=0;lEl.textContent=15;qbox.hidden=true;root.querySelector('.jend').hidden=true;
+    cats.forEach(c=>{const h=document.createElement('div');h.className='jcat';h.textContent=c;grid.appendChild(h)});
+    [0,1,2].forEach(r=>cats.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='jtile';b.textContent=(r+1)*100;b.setAttribute('aria-label',`${c} for ${(r+1)*100}`);
+      b.onclick=()=>open(c,r,b);grid.appendChild(b)}))}
+  function open(c,r,tile){if(!qbox.hidden)return;const it=SHOW[c][r],pts=(r+1)*100;tile.disabled=true;tile.classList.add('used');
+    qbox.hidden=false;qbox.innerHTML=`<div class="jqh"><span class="dtag">${c}</span><b>${pts} points · one chance</b></div><p class="gq">${it.q}</p>${it.audio?'<button type="button" class="btn jplay">▶ Play audio</button>':''}<div class="gopts">${it.o.map((o,k)=>`<button type="button" class="gbtn" data-k="${k}">${o}</button>`).join('')}</div><p class="fb"></p>`;
+    if(it.audio)qbox.querySelector('.jplay').onclick=()=>say(it.audio,.9);
+    qbox.scrollIntoView({block:'nearest',behavior:'smooth'});
+    qbox.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>{if(qbox.dataset.done)return;qbox.dataset.done='1';const ok=+b.dataset.k===it.a;blip(ok);
+      b.classList.add(ok?'ok':'no');if(!ok)qbox.querySelector(`.gbtn[data-k="${it.a}"]`).classList.add('ok');
+      qbox.querySelectorAll('.gbtn').forEach(x=>x.disabled=true);
+      if(ok)score+=pts;left--;sEl.textContent=score;lEl.textContent=left;tile.classList.add(ok?'won':'lost');tile.textContent=ok?'✓ '+pts:'✗';
+      const fb=qbox.querySelector('.fb');fb.className='fb '+(ok?'ok':'no');fb.innerHTML=ok?`<b>+${pts}!</b>`:'<b>No points.</b> The green answer is correct.';
+      setTimeout(()=>{qbox.hidden=true;delete qbox.dataset.done;if(left===0)done()},ok?1100:1800)})}
+  function done(){const b=best('showdown',score);bEl.textContent=b;const e=root.querySelector('.jend');e.hidden=false;
+    e.innerHTML=`<div class="gbig">${score} / 3000</div><p>Best: <b>${b}</b>${score>=b&&score>0?' · <b>New record!</b>':''}</p><button type="button" class="btn solid jagain">▶ Play again</button>`;
+    e.querySelector('.jagain').onclick=build}
+  build()})();
+
+/* ---------- Teacher lesson player ---------- */
+function teacherSVG(t){return `<svg viewBox="0 0 160 220" class="tsvg" aria-hidden="true">
+  <rect x="38" y="120" width="84" height="100" rx="26" fill="${t.shirt}"/>
+  <path d="M68 120 L80 140 L92 120" fill="none" stroke="#fff" stroke-width="4" opacity=".8"/>
+  <g class="arm"><path d="M116 136 L146 104" stroke="${t.shirt}" stroke-width="16" stroke-linecap="round"/><circle cx="149" cy="100" r="9" fill="${t.skin}"/></g>
+  <rect x="34" y="132" width="16" height="58" rx="8" fill="${t.shirt}"/>
+  <rect x="70" y="100" width="20" height="24" rx="6" fill="${t.skin}"/>
+  <path d="${t.hairBack}" fill="${t.hair}"/>
+  <ellipse cx="80" cy="72" rx="34" ry="38" fill="${t.skin}"/>
+  <path d="${t.hairFront}" fill="${t.hair}"/>
+  <g class="eyes"><ellipse cx="67" cy="72" rx="4" ry="5" fill="#1b1b1b"/><ellipse cx="93" cy="72" rx="4" ry="5" fill="#1b1b1b"/></g>
+  <path d="M60 62 q7 -5 14 0 M86 62 q7 -5 14 0" stroke="${t.hair}" stroke-width="3" fill="none" stroke-linecap="round"/>
+  ${t.glasses?'<g fill="none" stroke="#1b1b1b" stroke-width="2.5"><circle cx="67" cy="72" r="10"/><circle cx="93" cy="72" r="10"/><path d="M77 72h6"/></g>':''}
+  <ellipse class="mouth" cx="80" cy="92" rx="9" ry="4" fill="#7a2b2b"/>
+  <circle cx="58" cy="86" r="5" fill="#e88a7a" opacity=".35"/><circle cx="102" cy="86" r="5" fill="#e88a7a" opacity=".35"/>
+</svg>`}
+
+function lessonPlayer(host,cfg){
+  const S=cfg.slides;let i=0,auto=false,speaking=false;
+  host.innerHTML=`
+  <div class="pl-stage">
+    <div class="pl-teacher"><div class="pl-fig">${teacherSVG(cfg.look)}</div><div class="pl-name">${cfg.name}<small>${cfg.role}</small></div></div>
+    <div class="pl-board"><div class="pl-step"></div><div class="pl-content"></div></div>
+  </div>
+  <div class="pl-bubble" aria-live="polite"><p class="pl-say"></p><p class="pl-es es" hidden></p></div>
+  <div class="pl-bar">
+    <button class="btn" data-a="prev" aria-label="Previous slide">◀ Back</button>
+    <button class="btn solid" data-a="play">▶ Play lesson</button>
+    <button class="btn" data-a="next" aria-label="Next slide">Next ▶</button>
+    <button class="btn" data-a="es" aria-pressed="false">Español</button>
+    <div class="pl-dots" role="tablist"></div>
+  </div>
+  <p class="note pl-msg"></p>`;
+  const $=s=>host.querySelector(s);const fig=$('.pl-fig');
+  const dots=$('.pl-dots');S.forEach((_,k)=>{const d=document.createElement('button');d.type='button';d.className='pl-dot';d.setAttribute('aria-label','Slide '+(k+1));d.onclick=()=>{stop();go(k)};dots.appendChild(d)});
+  const voiceOk='speechSynthesis' in window;
+  if(!voiceOk)$('.pl-msg').textContent='Audio is not available on this device. Read the captions, or ask your teacher.';
+  function pickVoice(){if(!voiceOk)return null;const vs=speechSynthesis.getVoices().filter(v=>/^en(-|_)US/i.test(v.lang));
+    return vs.find(v=>cfg.voiceHint.test(v.name))||vs[0]||null}
+  function render(){
+    const s=S[i];$('.pl-step').textContent=`Step ${i+1} of ${S.length} · ${s.label}`;
+    $('.pl-content').innerHTML=s.board;$('.pl-say').textContent=s.say;$('.pl-es').textContent=s.es||'';
+    [...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k===i));
+    $('[data-a="prev"]').disabled=i===0;$('[data-a="next"]').textContent=i===S.length-1?'Start over ↺':'Next ▶';
+    host.querySelectorAll('.pl-reveal').forEach(b=>b.onclick=()=>{b.nextElementSibling.hidden=false;b.remove()});
+  }
+  function speak(){if(!voiceOk){if(auto)setTimeout(()=>{if(auto&&i<S.length-1){go(i+1);speak()}else stop()},Math.max(4000,S[i].say.length*60));return}
+    speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(S[i].say.replace(/[“”]/g,''));u.rate=.92;u.lang='en-US';const v=pickVoice();if(v)u.voice=v;
+    u.onstart=()=>{speaking=true;fig.classList.add('talking')};
+    u.onend=()=>{speaking=false;fig.classList.remove('talking');if(auto){if(i<S.length-1&&!S[i].pause){setTimeout(()=>{if(auto){go(i+1);speak()}},700)}else{auto=false;setPlay()}}};
+    u.onerror=()=>{fig.classList.remove('talking')};
+    speechSynthesis.speak(u)}
+  function setPlay(){$('[data-a="play"]').textContent=auto?'❚❚ Pause':(S[i].pause&&i<S.length-1?'▶ Continue':'▶ Play lesson')}
+  function stop(){auto=false;if(voiceOk)speechSynthesis.cancel();fig.classList.remove('talking');setPlay()}
+  function go(k){i=(k+S.length)%S.length;render();setPlay()}
+  host.addEventListener('click',e=>{const a=e.target.closest('[data-a]')?.dataset.a;if(!a)return;
+    if(a==='play'){if(auto){stop();return}if(S[i].pause&&i<S.length-1&&!speaking){go(i+1)}auto=true;setPlay();speak()}
+    if(a==='next'){stop();go(i===S.length-1?0:i+1);speak()}
+    if(a==='prev'){stop();go(i-1);speak()}
+    if(a==='es'){const p=$('.pl-es');p.hidden=!p.hidden;e.target.setAttribute('aria-pressed',!p.hidden)}
+  });
+  render();setPlay();
+}
+
+lessonPlayer(document.getElementById('lesson1'),{
+  name:'Ms. Alvarez',role:'Vocabulary coach',voiceHint:/female|samantha|zira|jenny|aria/i,
+  look:{skin:'#d9a57a',hair:'#3b2416',shirt:'#4338ca',glasses:false,
+    hairBack:'M40 72 q-4 66 22 70 h36 q26 -4 22 -70 q-4 -44 -40 -44 q-36 0 -40 44z',
+    hairFront:'M46 60 q4 -30 34 -30 q30 0 34 30 q-14 -10 -30 -12 q-6 10 -38 12z'},
+  slides:[
+   {label:'Today’s focus',say:"Hi, I’m Ms. Alvarez, your vocabulary coach. On ELPA21, you can know the answer and still miss the question if you don’t understand the words in the question. Today you will learn the words the test uses, and three ways to figure out new words.",
+    es:"Hoy vas a aprender las palabras que usa el examen y tres maneras de entender palabras nuevas.",
+    board:`<h4 class="bh">Words the Test Uses</h4><p class="bsub">Direction words + word attack</p><p class="bnote">Objective: I can explain what a test question asks me to do.</p>`},
+   {label:'Two kinds of words',say:"There are two kinds of words to watch. First, direction words. They tell you what to do, like summarize, compare, and support. Second, new words inside the reading. You can figure those out with clues.",
+    es:"Hay palabras de instrucción, que dicen qué hacer, y palabras nuevas dentro de la lectura.",
+    board:`<div class="bcols"><div><b>Direction words</b><br>tell you what to DO<br>summarize · compare · support</div><div><b>New words</b><br>inside the passage<br>figure them out with clues</div></div>`},
+   {label:'Direction words',say:"Watch how one word changes the job. Describe means tell what it is like. Explain means tell how or why. Summarize means tell the most important ideas in a short way. Support means prove it with evidence from the text.",
+    es:"Describir es decir cómo es. Explicar es decir cómo o por qué. Resumir es decir lo más importante. Apoyar es probar con evidencia.",
+    board:`<div class="bchips"><span><b>describe</b> what it is like</span><span><b>explain</b> how or why</span><span><b>summarize</b> short + most important</span><span><b>support</b> prove it</span><span><b>infer</b> clues + what I know</span><span><b>compare</b> alike / different</span></div>`},
+   {label:'Tool 1: Context clues',say:"Tool one is context clues. Look at the words around the new word. Listen. The road was hazardous. Broken trees made it unsafe. The word unsafe tells me hazardous means dangerous.",
+    es:"Herramienta uno: pistas del contexto. Mira las palabras alrededor.",
+    board:`<p class="bsent">The road was <u>hazardous</u>. Broken trees made it <u>unsafe</u>.</p><p class="bbig">hazardous = dangerous</p><p class="bnote">Clues can be a definition, an example, or an opposite (unlike, but).</p>`},
+   {label:'Tool 2: Word parts',say:"Tool two is word parts. Break the word into pieces. Un means not. Re means again. Less means without. So, unbreakable means it cannot be broken.",
+    es:"Herramienta dos: partes de palabras. un = no, re = otra vez, less = sin.",
+    board:`<p class="bsent"><u>un</u> + break + <u>able</u></p><p class="bbig">not + break + can be = cannot be broken</p><div class="bchips"><span><b>re-</b> again</span><span><b>pre-</b> before</span><span><b>-less</b> without</span><span><b>-ful</b> full of</span></div>`},
+   {label:'Tool 3: Cognates',say:"Tool three is your Spanish. Many test words are cognates. Evidence is evidencia. Compare is comparar. But be careful with false friends. Actually does not mean actualmente. It means in fact.",
+    es:"Herramienta tres: tu español. Muchos cognados ayudan, pero cuidado con los falsos amigos.",
+    board:`<p class="bsent good">✓ evidence = evidencia · compare = comparar</p><p class="bsent bad">✗ actually ≠ actualmente (it means “in fact”)</p><p class="bsent bad">✗ library ≠ librería (it means biblioteca)</p>`},
+   {label:'Your turn',say:"Your turn. Read this question. Which sentence supports the idea that Rosa is brave? What is the question asking you to do? Tell your partner, then press Continue.",pause:true,
+    es:"Tu turno: ¿Qué te pide hacer esta pregunta?",
+    board:`<p class="bsent">“Which sentence <u>supports</u> the idea that Rosa is brave?”</p><p class="bq">What does it want you to DO?</p><button class="btn pl-reveal" type="button">Show answer</button><p class="bbig" hidden>Find the sentence that PROVES Rosa is brave: evidence from the text.</p>`},
+   {label:'Go practice',say:"Great work. Now scroll down. Learn the word wall, play the match game, and decode real test questions. Use your three tools: clues, parts, and cognates.",
+    es:"Ahora practica: muro de palabras, juego de parejas y preguntas del examen.",
+    board:`<ol class="blist"><li><b>Read the direction word.</b> What do I DO?</li><li><b>Clues</b> around the word</li><li><b>Parts</b> inside the word</li><li><b>Cognates</b> (watch for false friends)</li></ol><p class="bnote">Next: Word wall ↓</p>`}
+  ]});
+
+lessonPlayer(document.getElementById('lesson2'),{
+  name:'Mr. Brooks',role:'Test coach',voiceHint:/male|daniel|david|guy|alex|fred/i,
+  look:{skin:'#8d5a3b',hair:'#1c1410',shirt:'#0f766e',glasses:true,
+    hairBack:'M48 60 q0 -30 32 -30 q32 0 32 30z',
+    hairFront:'M46 62 q4 -32 34 -32 q30 0 34 32 q-10 -12 -34 -12 q-24 0 -34 12z'},
+  slides:[
+   {label:'Today’s focus',say:"Hey, I’m Mr. Brooks, your test coach. The best way to feel calm on test day is to know what is coming. Today we tour the four parts of ELPA21 and learn the moves strong test takers use.",
+    es:"Hoy vamos a conocer las cuatro partes del ELPA21 y las mejores estrategias.",
+    board:`<h4 class="bh">Know the Test</h4><p class="bsub">4 domains · smart moves</p><p class="bnote">Objective: I can name the four domains and use one strategy for each.</p>`},
+   {label:'Four domains',say:"ELPA21 has four domains: listening, reading, speaking, and writing. You take it on a computer. You listen with headphones, you speak into a microphone, and you type your writing. Your scores in each domain together show your English level.",
+    es:"Cuatro partes: escuchar, leer, hablar y escribir, en la computadora.",
+    board:`<div class="bchips"><span><b>Listening</b> headphones</span><span><b>Reading</b> passages + questions</span><span><b>Speaking</b> microphone</span><span><b>Writing</b> typing</span></div><p class="bnote">Together, the four domains show your English level.</p>`},
+   {label:'Take your time',say:"Here is good news. ELPA21 is not a timed test. Nobody wins by finishing first. Slow down, read carefully, and check your work. Before you start, test your headphones and your microphone.",
+    es:"El ELPA21 no tiene límite de tiempo. Ve despacio y revisa tu trabajo.",
+    board:`<p class="bbig">Not timed. Slow down.</p><ol class="blist"><li>Test headphones + microphone first</li><li>Read every question carefully</li><li>Check before you move on</li></ol>`},
+   {label:'Reading + listening',say:"For reading and listening, read the question first. Then you know what to look for or listen for. When you choose an answer, cross out the ones you know are wrong. It is easier to choose from two than from four.",
+    es:"Lee la pregunta primero. Luego elimina las respuestas incorrectas.",
+    board:`<ol class="blist"><li><b>Question first</b>, then the passage or audio</li><li><b>Cross out</b> two wrong answers</li><li><b>Prove it</b> with the text</li></ol>`},
+   {label:'Speaking',say:"For speaking, use the question in your first sentence. Then give a reason and an example, and keep talking. A one-word answer shows very little English. Full, organized sentences show a lot.",
+    es:"Al hablar, repite la pregunta, da una razón y un ejemplo. Sigue hablando.",
+    board:`<p class="bsent">Q: What is your favorite class?</p><p class="bsent bad">✗ “Math.”</p><p class="bsent good">✓ “My favorite class is math because I like solving problems. For example, …”</p>`},
+   {label:'Writing',say:"For writing, never leave the box empty. Answer the prompt in your first sentence, add details, and use linking words like first, also, and for example. Then reread for capitals and periods.",
+    es:"Al escribir, nunca dejes la caja vacía. Responde, agrega detalles y revisa.",
+    board:`<ol class="blist"><li>Answer the prompt first</li><li>Add details + linking words</li><li>Reread: capitals, periods, verbs</li></ol><p class="bnote">An empty box earns 0. A few good sentences earn points.</p>`},
+   {label:'Your turn',say:"Your turn. A student sees a word she doesn’t know in a reading question. What should she do? Tell your partner one smart move, then press Continue.",pause:true,
+    es:"Tu turno: ¿Qué debe hacer con una palabra que no conoce?",
+    board:`<p class="bq">A student sees an unknown word in a reading question. What should she do?</p><button class="btn pl-reveal" type="button">Show answer</button><p class="bbig" hidden>Keep reading! Use context clues, word parts or a cognate, cross out wrong answers, or skip and come back.</p>`},
+   {label:'Go practice',say:"Now scroll down and take the tour. Try one task from each domain, sort the smart moves, and practice the cross-out drill. You’ve got this.",
+    es:"Ahora prueba una tarea de cada parte. ¡Tú puedes!",
+    board:`<p class="bbig">Calm · Careful · Complete</p><p class="bnote">Next: Task tour ↓</p>`}
+  ]});
+
+lessonPlayer(document.getElementById('lesson3'),{
+  name:'Ms. Patel',role:'Writing coach',voiceHint:/female|samantha|zira|jenny|aria/i,
+  look:{skin:'#b07a52',hair:'#120c0a',shirt:'#b45309',glasses:true,
+    hairBack:'M42 70 q-2 64 18 70 h40 q20 -6 18 -70 q-4 -42 -38 -42 q-34 0 -38 42z',
+    hairFront:'M46 64 q2 -34 34 -34 q32 0 34 34 q-16 -16 -34 -16 q-18 0 -34 16z'},
+  slides:[
+   {label:'Today’s focus',say:"Hello, I’m Ms. Patel, your writing coach. On ELPA21, scorers look for writing that answers the prompt, is organized, and is clear. Today we build that from the ground up: the sentence, then the paragraph.",
+    es:"Hoy construimos la escritura desde la base: la oración y el párrafo.",
+    board:`<h4 class="bh">Writing Basics</h4><p class="bsub">Sentence → paragraph</p><p class="bnote">Objective: I can write a clear paragraph with complete sentences.</p>`},
+   {label:'A complete sentence',say:"A complete sentence needs three things: a subject, a verb, and a complete thought. The students studied. Students is the subject. Studied is the verb. And the idea is complete.",
+    es:"Una oración completa necesita sujeto, verbo y una idea completa.",
+    board:`<p class="bsent"><u>The students</u> <u>studied</u>.</p><div class="bchips"><span><b>subject</b> who</span><span><b>verb</b> action</span><span><b>complete</b> thought</span></div>`},
+   {label:'Watch out',say:"Watch out for fragments. Because the bus was late. That is not complete. Because the bus was late, what happened? Also, in Spanish we say es importante, but in English we need a subject: It is important.",
+    es:"Cuidado: en inglés necesitamos el sujeto. It is important, no Is important.",
+    board:`<p class="bsent bad">✗ Because the bus was late.</p><p class="bsent good">✓ Because the bus was late, I missed first period.</p><p class="bsent bad">✗ Is important to read.</p><p class="bsent good">✓ It is important to read.</p>`},
+   {label:'Capitals + end marks',say:"Every sentence starts with a capital letter and ends with a period, a question mark, or an exclamation point. The word I is always a capital. Names and days, like Saturday, are capitals too.",
+    es:"Mayúscula al inicio, punto al final. I siempre es mayúscula, y los días también.",
+    board:`<p class="bsent bad">✗ on saturday i went to the park</p><p class="bsent good">✓ <span class="bcomma">O</span>n <span class="bcomma">S</span>aturday <span class="bcomma">I</span> went to the park<span class="bcomma">.</span></p>`},
+   {label:'Stretch it',say:"Short sentences score low. Stretch them. Answer when, where, and why. Maria studied becomes: After school, Maria studied in the library because she had a test.",
+    es:"Alarga tus oraciones: ¿cuándo? ¿dónde? ¿por qué?",
+    board:`<p class="bsent">Maria studied.</p><p class="bbig">After school, Maria studied in the library because she had a test.</p><p class="bnote">when · where · why</p>`},
+   {label:'The paragraph',say:"A paragraph has a shape. Start with a topic sentence that answers the prompt. Add two details with linking words like first and also. Give an example. Then close with that is why.",
+    es:"Un párrafo: oración temática, dos detalles, un ejemplo y un cierre.",
+    board:`<ol class="blist"><li><b>Topic sentence</b>: answers the prompt</li><li><b>First,</b> detail 1</li><li><b>Also,</b> detail 2</li><li><b>For example,</b> …</li><li><b>That is why</b> … (closing)</li></ol>`},
+   {label:'Your turn',say:"Your turn. Fix this sentence out loud with your partner. my sister play soccer every saturday. Find three mistakes, then press Continue.",pause:true,
+    es:"Tu turno: encuentra tres errores.",
+    board:`<p class="bsent">my sister play soccer every saturday</p><button class="btn pl-reveal" type="button">Show answer</button><p class="bbig" hidden>My sister plays soccer every Saturday. (capital M · plays · capital S · period)</p>`},
+   {label:'Go write',say:"Excellent. Now scroll down. Sort sentences and fragments, fix mistakes, stretch a sentence, order a paragraph, and then write your own. Check every box before you finish.",
+    es:"Ahora practica y escribe tu propio párrafo.",
+    board:`<p class="bbig">Complete · Clear · Organized</p><p class="bnote">Next: Sentence or fragment? ↓</p>`}
+  ]});
+
+/* ================= JOTFORM SUBMISSION ================= */
+(function(){const FORM='https://form.jotform.com/263087049601053';
+  const sc=s=>{const g=GR[s];return `${g.c} / ${g.t} (${g.t?Math.round(100*g.c/g.t):0}%)`+(g.a<g.t?` · ${g.t-g.a} unanswered`:'')};
+  const val=id=>(document.getElementById(id)?.value||'').trim();
+  const games=()=>`Word Rush ${best('wordrush')} · Showdown ${best('showdown')} · Error Hunt ${best('errorhunt')}`;
+  function data(){return {studentName:val('subName'),classPeriod:val('subPer'),s1score:sc(1),s2score:sc(2),s3score:sc(3),s1exit:val('vExit'),s2exit:val('tExit'),s3para:val('pDraft'),games:games()}}
+  const LBL={s1score:'Station 1 Vocabulary score',s2score:'Station 2 Tasks + Tips score',s3score:'Station 3 Writing score',s1exit:'Station 1 exit sentences',s2exit:'Station 2 top 3 tips',s3para:'Station 3 paragraph',games:'Game best scores'};
+  const grid=document.getElementById('sumgrid'),go=document.getElementById('subGo'),msg=document.getElementById('subMsg');
+  function paint(){const d=data();
+    grid.innerHTML=Object.keys(LBL).map(k=>`<div class="sum"><div class="sum-h"><b>${LBL[k]}</b><button type="button" class="btn cp" data-k="${k}" aria-label="Copy ${LBL[k]}">📋</button></div><div class="sum-v${d[k]?'':' empty'}">${d[k]?d[k].replace(/&/g,'&amp;').replace(/</g,'&lt;'):'Not done yet'}</div></div>`).join('');
+    grid.querySelectorAll('.cp').forEach(b=>b.onclick=()=>copy(data()[b.dataset.k]||''));
+    const q=new URLSearchParams();Object.entries(d).forEach(([k,v])=>{if(v)q.set(k,v.slice(0,1800))});go.href=FORM+'?'+q.toString()}
+  function copy(t){navigator.clipboard.writeText(t).then(()=>msg.textContent='Copied. Paste it into the Jotform.').catch(()=>{msg.textContent='Copy is blocked here. Select the text and press Ctrl+C.'})}
+  document.getElementById('subCopy').onclick=()=>{const d=data();copy(`Name: ${d.studentName}\nClass period: ${d.classPeriod}\n`+Object.keys(LBL).map(k=>`${LBL[k]}: ${d[k]||'(not done)'}`).join('\n'))};
+  go.addEventListener('click',e=>{paint();const d=data();
+    if(!d.studentName||!d.classPeriod){e.preventDefault();msg.textContent='Type your name and choose your class period first.';(d.studentName?document.getElementById('subPer'):document.getElementById('subName')).focus();return}
+    msg.textContent='The Jotform opened in a new tab. Check your boxes, then press Submit.'});
+  /* direct submit: Jotform field IDs from the form (q<id>_<name>) */
+  const QID={studentName:'q12_studentName',classPeriod:'q3_classPeriod',s1score:'q4_s1score',s2score:'q5_s2score',s3score:'q6_s3score',s1exit:'q7_s1exit',s2exit:'q8_s2exit',s3para:'q9_s3para',games:'q10_games'};
+  const send=document.getElementById('subSend'),sent=document.getElementById('subSent');
+  function showSent(t,d){sent.hidden=false;sent.innerHTML=`<b>✓ Sent to your teacher at ${t}.</b> ${d?`Station scores: ${d.s1score.split(' (')[0]} · ${d.s2score.split(' (')[0]} · ${d.s3score.split(' (')[0]}`:''} <button type="button" class="linkbtn" id="subAgain">Send again</button>`;
+    send.disabled=true;send.textContent='✓ Submitted';document.getElementById('subAgain').onclick=()=>{send.disabled=false;send.textContent='📤 Submit my scores';sent.hidden=true}}
+  send.onclick=async()=>{paint();const d=data();
+    if(!d.studentName||!d.classPeriod){msg.textContent='Type your name and choose your class period first.';(d.studentName?document.getElementById('subPer'):document.getElementById('subName')).focus();return}
+    const unans=[1,2,3].reduce((n,s)=>n+GR[s].t-GR[s].a,0);
+    if(unans&&!send.dataset.warned){send.dataset.warned='1';msg.textContent=`You still have ${unans} unanswered question${unans===1?'':'s'}. Press Submit again to send anyway.`;return}
+    send.disabled=true;send.textContent='Sending…';msg.textContent='';
+    const fd=new FormData();fd.append('formID','263087049601053');fd.append('simple_spc','263087049601053-263087049601053');
+    Object.entries(QID).forEach(([k,q])=>fd.append(q,(d[k]||'(not done)').slice(0,4000)));
+    try{await fetch('https://submit.jotform.com/submit/263087049601053/',{method:'POST',mode:'no-cors',body:fd});
+      const t=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+      try{localStorage.setItem('ep_sent',JSON.stringify({t,d}))}catch(e){}showSent(t,d)}
+    catch(e){send.disabled=false;send.textContent='📤 Submit my scores';msg.innerHTML='<b>Could not send from this page.</b> Use the backup link below to open the Jotform.'}};
+  try{const s=JSON.parse(localStorage.getItem('ep_sent')||'null');if(s)showSent(s.t,s.d)}catch(e){}
+  ['subName','subPer'].forEach(id=>{store(id);document.getElementById(id).addEventListener('input',paint);document.getElementById(id).addEventListener('change',paint)});
+  document.addEventListener('click',()=>setTimeout(paint,50));document.addEventListener('input',e=>{if(e.target.closest('.panel'))paint()});
+  paint()})();
+[1,2,3].forEach(gPaint);
+})();
+</script>
+</body>
+</html>
