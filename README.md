@@ -14,6 +14,8 @@ Every station has a 30-minute timer, a teacher lesson read aloud with captions a
 
 **Agenda board:** `agenda.html` is the projector board, with the essential question, objectives, an editable group rotation chart, a 30-minute round timer with chime, and step checklists for each station.
 
+**Paper checklist:** `ELPA21-Prep-Stations-Student-Checklist.pdf` is a two-page student checklist (print front and back) for scores, write-ins and reflection during the rotation.
+
 Open one station directly: add `#station-1`, `#station-2` or `#station-3` to the address.
 
 EL Publishing · Many Voices · One Storm
